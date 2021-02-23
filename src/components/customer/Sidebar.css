@@ -1,0 +1,14 @@
+.Sidebar{
+    /* sidebar / desktop */
+    position: fixed;
+    width: 17%;
+    min-width: 150px;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+
+    /* border: solid 2px red; */
+    /* sidebar / bg */
+    background: #363740;
+
+}

@@ -5,7 +5,7 @@ import './App.css';
 import Landing from './components/landing.js'
 import Login from './components/login.js'
 import Signup from './components/signup.js'
-import Dashboard from './components/dashboard.js'
+import Dashboard from './components/customer/cus_dashboard.js'
 
 function App() {
   return (

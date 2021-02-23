@@ -1,0 +1,40 @@
+.topAll{
+    /* border: black 2px solid; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* position: relative; */
+    
+    /* align-content: center; */
+    padding: 5px;
+    margin: 40px;
+    margin-top: 30px;
+    color: #252733;
+}
+.topAll .title{
+    /* border: solid black 2px; */
+
+}
+.topAll .profile{
+    /* border: solid black 2px; */
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+.topAll h3, h4{
+    display: flex;
+    flex-wrap: wrap;
+
+    margin: 0;
+    text-align: bottom;
+}
+.topAll h3{
+    padding-top:10px ;
+}
+.topAll h4{
+    border-left: #252733 solid 2px;
+
+    padding: 7px;
+    margin-left: 5px;
+
+}
