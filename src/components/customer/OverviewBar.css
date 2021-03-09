@@ -1,0 +1,12 @@
+.OverviewBar{
+    /* border: black 2px solid; */
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    column-gap:10px ;
+    justify-content: space-between;
+    margin: 40px;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}

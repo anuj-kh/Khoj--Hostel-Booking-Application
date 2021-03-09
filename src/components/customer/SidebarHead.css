@@ -1,0 +1,27 @@
+.SidebarHead{
+    display: flex;
+    /* border: solid black 2px; */
+    height: 20%;
+    justify-content: center;
+
+}
+.SidebarHead h2{
+    position: absolute;
+    /* border: solid 2px white ; */
+    margin:0;
+    padding: 3px;
+    color: #c3c5d1;
+    /* font-size: larger; */
+    align-self: center;
+}
+.SidebarHead p{
+    position: absolute;
+    /* border: solid 2px white ; */
+    margin:0;
+    padding: 3px;
+    margin-top: 40px;
+    color: #c3c5d1;
+    /* font-size: larger; */
+    align-self: center;
+    font-size:x-small;
+}

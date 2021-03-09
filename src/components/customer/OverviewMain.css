@@ -1,0 +1,38 @@
+.OverviewMain{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 40px;
+    margin-top: 20px;
+    border: #acadb8 solid 1px;
+    border-radius: 5px;
+    height: 55%;
+    background: white;
+
+    /* padding :10px; */
+}
+.OverviewMain .left{
+    width: 60%;
+    padding: 10px;
+}
+.OverviewMain .left h2{
+    text-align: start;
+    color: #252733;
+    margin: 0;
+    margin-top: 5px;
+}
+.OverviewMain .left p{
+    margin: 0;
+    font-size: 12px;
+    line-height: 16px;
+    margin-bottom: 20px;
+}
+.right{
+    width: 25%;
+    height: 100%;
+    left: 15%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    /* border: solid 2px red; */
+    
+}
