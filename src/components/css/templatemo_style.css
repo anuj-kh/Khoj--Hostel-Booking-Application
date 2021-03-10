@@ -208,7 +208,7 @@ nav.main-menu a {
 }
 #templatemo_home .templatemo_home_inner_wapper {
   width: 100%;
-  max-width: 500px;
+  max-width: 650px;
   margin: 0 auto;
 }
 #templatemo_home h1 {
@@ -245,9 +245,9 @@ nav.main-menu a {
   color: #000;
   padding: 0;
 }
-/***** Features *****/
+/***** Why Us *****/
 #templatemo_features {
-  background: #455a64 url(../images/pattern_bg.png) fixed;
+  background: #455a64 url(../images/moroccan-flower-dark.png) fixed;
   padding-bottom: 130px;
 }
 #templatemo_features p {
@@ -296,12 +296,12 @@ nav.main-menu a {
   font-size: 56px;
   color: #233842;
 }
-/***** Download *****/
+/***** Start A Khoj *****/
 #templatemo_download {
   background: url(../images/download_background.jpg) fixed;
 }
-#templatemo_download h2 {
-  font: normal normal 100 100px/150px "Fira Sans", sans-serif;
+#templatemo_download h4 {
+  font: normal normal 100 70px/120px "Fira Sans", sans-serif;
   text-align: center;
   color: #fff;
 }
@@ -309,52 +309,51 @@ nav.main-menu a {
   text-align: center;
   color: #fff;
 }
+#templatemo_download .templatemo_home_inner_wapper {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
 #templatemo_download a {
   margin: 50px auto 100px auto;
   display: block;
-  width: 260px;
+  width: 200px;
 }
+
+#templatemo_download a {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-bottom: 1px dotted #000;
+  text-decoration: none;
+  padding: 5px;
+  color: #000;
+}
+#templatemo_download a:hover {
+  background-color: rgba(255, 255, 255, 0.75);
+  border-bottom: 0px dotted #000;
+}
+#templatemo_download a.btn_wapper {
+  margin-bottom: 150px;
+}
+#templatemo_download a.btn {
+  font: normal normal 300 18px/60px "Fira Sans", sans-serif;
+  margin-bottom: 30px;
+  border-radius: 0px;
+  background: #fff;
+  height: 63px;
+  color: #000;
+  padding: 0;
+}
+
 #templatemo_download .templatemo_download_text_wapper {
   width: 100%;
   max-width: 550px;
   margin: auto;
 }
-/***** Element *****/
-#templatemo_element .container {
-  background-color: #fff;
-  margin-top: 40px;
-  margin-bottom: 80px;
-  padding-bottom: 40px;
-  border-radius: 5px;
-}
-#templatemo_element header h1 {
-  color: #000;
-}
-#templatemo_element #element-icon-wapper {
-  overflow: hidden;
-  border-radius: 5px;
-}
-#templatemo_element #element-icon-wapper > div {
-  background-color: rgba(0, 0, 0, 0.05);
-  padding-bottom: 5px;
-  padding-top: 5px;
-  text-align: center;
-  line-height: 40px;
-  font-size: 25px;
-}
-#templatemo_element #element-icon-wapper > div:hover {
-  transition: 0.5s;
-  background-color: rgba(0, 0, 0, 0.2);
-}
-#templatemo_element #element-icon-wapper a {
-  color: #000;
-}
-#templatemo_element #img-grid-wapper > div {
-  padding: 5px;
-}
+
 /***** Contact *****/
+
 #templatemo_contact {
-  background: #455a64 url(../images/pattern_bg.png) fixed;
+  background: #455a64 url(../images/moroccan-flower-dark.png) fixed;
   color: #fff;
 }
 #templatemo_contact header h1 {
@@ -416,18 +415,14 @@ nav.main-menu a {
   transform: rotate(360deg);
   color: #223741;
 }
+
 #templatemo_contact .social .social-facebook {
   background: #4a6fb5;
-}
-#templatemo_contact .social .social-twitter {
-  background: #28a9e0;
-}
-#templatemo_contact .social .social-youtube {
-  background: #f86d70;
 }
 #templatemo_contact .social .social-instagram {
   background: #cab9a9;
 }
+
 /***** Footer *****/
 footer {
   padding: 20px 0 16px 0;
