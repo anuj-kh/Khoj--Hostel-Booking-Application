@@ -1,32 +1,17 @@
-// import React, { Component } from 'react';
-// class register extends Component {
-//     state = {  }
-//     render() { 
-//         return (<h1>Register</h1>); 
-//     }
-// }
- 
-// export default register;
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react'
-//import './todo.css'
 
-
-
-class register extends Component {
+class Register extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
             firstName: "",
             lastName: "",
             password: "",
-            gender: "",
-
-
+            gender: ""
         }
         this.handleSubmit=this.handleSubmit.bind(this)
     }
-
     firsthandler = (event) => {
         this.setState({
             firstName: event.target.value
@@ -48,17 +33,20 @@ class register extends Component {
             gender: event.target.value
         })
     }
-
     handleSubmit = (event) => {
-        alert(`${this.state.firstName} ${this.state.lastName}  Registered Successfully !!!!`)
-        console.log(this.state);
-        this.setState({
-            firstName: "",
-            lastName: "",
-            password: '',
-            gender: "",
-        })
-     event.preventDefault()
+        if (this.state.firstName && this.state.lastName && this.state.password && this.state.gender)
+        {
+            alert(`${this.state.firstName} ${this.state.lastName}  Registered Successfully !!!!`)
+            console.log(this.state);
+            this.setState({
+                firstName: "",
+                lastName: "",
+                password: '',
+                gender: "",
+            })
+            event.preventDefault();
+            this.props.history.push("/login");
+        }
         
     }
 
@@ -81,11 +69,9 @@ class register extends Component {
                     </select><br />
                     <input className="btn btn-primary m-2" type="submit" value="Submit" />
                 </form>
-
             </div>
-            
         )
     }
 }
 
-export default register
+export default Register

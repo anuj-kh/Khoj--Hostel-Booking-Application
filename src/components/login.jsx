@@ -1,9 +1,10 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
 import { Redirect, BrowserRouter } from 'react-router-dom';
 import { BrowserRouter as Router, useHistory } from 'react-router-dom';
-import register from './register';
+import Register from './register';
 
-class login extends Component {
+class Login extends Component {
   state = {
     account: { username: '', password: '' },
     errors: {}
@@ -16,8 +17,10 @@ class login extends Component {
   };
   loginHandler = () => {
     if (this.state.account.username && this.state.account.password)
-      
-    console.log('login');
+    {
+      console.log('login');
+      this.props.history.push("/dashboard");
+    }
   }
   validate = () => { 
     const errors = {};
@@ -72,4 +75,4 @@ class login extends Component {
   
 }
  
-export default login;
+export default Login;
