@@ -7,7 +7,7 @@ import './OverviewMain.css';
 class OverviewMain extends Component {
     render() {
         const style = {
-            width: '1188px',
+            width: '1850px',
             height: '300px',
             borderRadius:'5px',
           }
