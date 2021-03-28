@@ -1,8 +1,13 @@
-import React from 'react'
-import { AppBar, Toolbar, IconButton, List, ListItem, ListItemText, makeStyles, Container, Hidden, Grid } from '@material-ui/core'
+import React, { useState, useEffect } from 'react';
+import { AppBar, Toolbar, IconButton, List, ListItem, ListItemText, makeStyles, Container, Hidden, Grid , Button } from '@material-ui/core'
 import { Link } from 'react-router-dom';
 import SideDrawer from "./sideDrawer"
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
+import { useHistory, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import * as actionType from '../../constants/actionTypes';
+import decode from 'jwt-decode';
 
 const useStyles = makeStyles({
     appbar: {
@@ -33,7 +38,34 @@ const navLinks = [
   ]
 
 const Navbar = () => {
+
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const history = useHistory();
+
     const classes = useStyles();
+
+    const logout = () => {
+        dispatch({ type: actionType.LOGOUT });
+    
+        history.push('/auth');
+    
+        setUser(null);
+    };
+
+    useEffect(() => {
+        const token = user?.token;
+    
+        if (token) {
+          const decodedToken = decode(token);
+    
+          if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+        }
+    
+        setUser(JSON.parse(localStorage.getItem('profile')));
+      }, [location]);
+
     return (
         
     <AppBar position="static" className={classes.appbar}>
@@ -56,12 +88,16 @@ const Navbar = () => {
                             </ListItem>
                         </Link>
                         ))}
-                        <Link to='/login' className={classes.linkText} >
+                        {/* <Link to='/login' className={classes.linkText} >
                             <ListItem button>
                                 <ExitToAppIcon />
                                 <ListItemText primary="Sign out" />
                             </ListItem>
-                        </Link>
+                        </Link> */}
+                        <Button  className={classes.logout} className={classes.linkText} onClick={logout}>
+                            <ExitToAppIcon />
+                            <ListItemText primary="Sign out" />
+                        </Button>
                     </List>
                 </Hidden>
 
