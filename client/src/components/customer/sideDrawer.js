@@ -1,7 +1,6 @@
-import * as React from "react"
+import { React, useState } from "react"
 import { IconButton, Drawer, List, ListItem, ListItemText } from "@material-ui/core"
 import { Menu } from "@material-ui/icons"
-import { useState } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import { Link } from 'react-router-dom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';

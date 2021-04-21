@@ -22,7 +22,6 @@ function createData(name, category, bookedOn, startOn, leftOn, price) {
 
 export default function BookingTable(props) {
   const classes = useStyles();
-//   const rows = [{props}];
   const rows = [
     createData(props.nameA, props.catA, props.bookA, props.startA, props.endA, props.priceA),
     createData(props.nameB, props.catB, props.bookB, props.startB, props.endB, props.priceB)

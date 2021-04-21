@@ -7,18 +7,15 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import Icon from './icon';
 import { signin, signup, gSignin } from '../../actions/auth';
-import { AUTH } from '../../constants/actionTypes';
 import useStyles from './styles';
-import Input from './inputs';
+import Input from './input';
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '', user:'' };
 
-const Auth = (props) => {
+const Auth = () => {
   const [error, setError] = useState('');
-  // const [user, setUser] = useState('');
   const [form, setForm] = useState(initialState);
   const [isSignup, setIsSignup] = useState(false);
-  // const [isSignup, setIsSignup] = props.isSignup;
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -68,20 +65,6 @@ const Auth = (props) => {
 
   const googleSuccess = async (res) => {
     const result = res?.profileObj;
-    // const token = res?.tokenId;
-    // console.log(result);
-    // console.log(result.email);
-    // console.log(result.name);
-    // console.log(result.googleId);
-    // console.log(token);
-    // console.log(res);
-    // try {
-    //   // dispatch({ type: AUTH, data: { result, token } });
-    //   history.push('/dashboard');
-    //   history.go();
-    // } catch (error) {
-    //   console.log(  error);
-    // }
       (async () => {
         const a = await dispatch(gSignin(result, history));
         console.log(a);

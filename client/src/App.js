@@ -1,10 +1,8 @@
 import React from 'react';
-import {BrowserRouter, Redirect, Route } from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, useHistory } from 'react-router-dom';
 import {Helmet} from 'react-helmet';
-import './App.css';
-import Dashboard from './components/customer/cus_dashboard'
+import Dashboard from './components/customer/dashboard'
 import Auth from './components/auth/auth'
-import { useHistory } from 'react-router-dom';
 
 function App() {
   const history = useHistory();

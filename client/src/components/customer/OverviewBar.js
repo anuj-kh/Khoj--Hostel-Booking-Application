@@ -1,6 +1,5 @@
 import React from 'react'
 import OverviewBarTile from "./OverviewBarTile";
-import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({

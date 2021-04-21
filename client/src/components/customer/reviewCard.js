@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { makeStyles, Paper, Box, Grid } from '@material-ui/core'
+import React from 'react'
+import { makeStyles, Paper, Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
     customBorderRadius: {

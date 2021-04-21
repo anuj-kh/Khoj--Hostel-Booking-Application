@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Navbar from './navbar'
 import AccountTable from './accountTable.js'
 import { makeStyles, Button } from '@material-ui/core'

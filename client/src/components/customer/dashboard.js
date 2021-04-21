@@ -1,11 +1,8 @@
-// import './cus_dashboard.css';
-// import Sidebar from './Sidebar';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Route, Switch, useHistory} from 'react-router-dom';
 import Main from './Main.js';
-import MyAccount from './accounts';
+import MyAccount from './myAccount';
 import Bookings from './bookings';
 import Reviews from './reviews';
-import { useHistory } from 'react-router-dom';
 
 function Dashboard() {
   const history = useHistory();

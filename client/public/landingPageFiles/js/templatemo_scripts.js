@@ -49,14 +49,14 @@ jQuery(document).ready(function(){
     });
     // Menu scroll to.
     $('a.scroll_effect').on('click', function(e){
-        target_element = $(this).attr('href');
-        scroll_to = $(target_element).offset().top;
+        var target_element = $(this).attr('href');
+        var scroll_to = $(target_element).offset().top;
         if($(window).scrollTop() != scroll_to && target_element !== undefined){
             // Chrome scroll to calculation and other browser scroll to calculation is different.
             if($.templatemo_is_chrome){
-                body_scroll_target = scroll_to;
+                var body_scroll_target = scroll_to;
             }else{
-                body_scroll_target = $("body").scrollTop()+scroll_to;
+                var body_scroll_target = $("body").scrollTop()+scroll_to;
             }
             $('html,body').animate({scrollTop:body_scroll_target},1000);
         }

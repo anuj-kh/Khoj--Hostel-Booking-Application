@@ -53,7 +53,7 @@ td,
 li,
 dl,
 .form-control {
-  font: normal normal 300 18px/2em "Fira Sans";
+  font: normal normal 300 18px/2em "Helvetica, Arial, Verdana, Tahoma, sans-serif";
 }
 b,
 strong,
@@ -318,9 +318,6 @@ nav.main-menu a {
   margin: 50px auto 100px auto;
   display: block;
   width: 200px;
-}
-
-#templatemo_download a {
   background-color: rgba(255, 255, 255, 0.6);
   border-bottom: 1px dotted #000;
   text-decoration: none;

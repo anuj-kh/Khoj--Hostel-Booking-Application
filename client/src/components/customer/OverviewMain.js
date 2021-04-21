@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import { Col, Container, Dropdown, Row } from 'react-bootstrap';
 import Drops from './Drops.js'
 import './OverviewMain.css';
 

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Toolbar, IconButton, List, ListItem, ListItemText, makeStyles, Container, Hidden, Grid , Button } from '@material-ui/core'
-import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, List, ListItem, ListItemText, makeStyles, Container, Hidden, Grid , Button } from '@material-ui/core'
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import SideDrawer from "./sideDrawer"
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
-import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import * as actionType from '../../constants/actionTypes';
 import decode from 'jwt-decode';
