@@ -12,7 +12,7 @@ const OverviewBarTile = (props) => {
     const classes=useStyles();
         return (
             <Paper className={classes.customBorderRadius} elevation={15}>
-                <Grid align="center" justify="center" direction="column" >
+                <Grid align="center">
                     <br />
                     <h2>{props.title}</h2>
                     <h3>{props.value}</h3>

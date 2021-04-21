@@ -1,6 +1,6 @@
 import * as actionType from '../constants/actionTypes';
 
-const authReducer = (action, state = { authData: null }) => {
+const authReducer = (state = { authData: null }, action) => {
   switch (action.type) {
 
     case actionType.AUTH:

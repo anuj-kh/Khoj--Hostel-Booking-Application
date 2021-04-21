@@ -55,7 +55,7 @@ const SideDrawer = ({ navLinks })  => {
       );
 
     return (
-      <React.Fragment>
+      <>
         <IconButton edge="end" aria-label="menu" onClick={toggleDrawer("right", true)} >
             <Menu fontSize="large" style={{ color: `white` }} />
         </IconButton>
@@ -67,7 +67,7 @@ const SideDrawer = ({ navLinks })  => {
         >
         {sideDrawerList("right")}
         </Drawer>
-      </React.Fragment>
+      </>
     )
   }
   
