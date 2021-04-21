@@ -2,11 +2,9 @@
 const express = require('express');
 const router = express.Router();
 
-const { signin, signup } = require("../controllers/user.js");
+const { signin, signup, gSignin } = require("../controllers/user.js");
 
 router.post("/signin", signin);
 router.post("/signup", signup);
-
-console.log("aa");
-
+router.post("/gSignin", gSignin);
 module.exports=router;

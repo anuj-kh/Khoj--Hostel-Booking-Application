@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Avatar, Button, Paper, Grid, Typography, Container , Select , MenuItem } from '@material-ui/core';
+import { Avatar, Button, Paper, Grid, Typography, Container , Select , MenuItem, InputLabel,FormControl } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import Icon from './icon';
-import { signin, signup } from '../../actions/auth';
+import { signin, signup, gSignin } from '../../actions/auth';
 import { AUTH } from '../../constants/actionTypes';
 import useStyles from './styles';
 import Input from './inputs';
 
-const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
+const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '', user:'' };
 
 const Auth = (props) => {
+  const [error, setError] = useState('');
+  // const [user, setUser] = useState('');
   const [form, setForm] = useState(initialState);
   const [isSignup, setIsSignup] = useState(false);
   // const [isSignup, setIsSignup] = props.isSignup;
@@ -26,6 +28,7 @@ const Auth = (props) => {
 
   const switchMode = () => {
     setForm(initialState);
+    setError("");
     setIsSignup((prevIsSignup) => !prevIsSignup);
     setShowPassword(false);
   };
@@ -33,31 +36,67 @@ const Auth = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(form);
-    if (isSignup) {
-      dispatch(signup(form, history));
-      setIsSignup((prevIsSignup) => !prevIsSignup);
-    } else {
-      dispatch(signin(form, history));
+    if (isSignup) 
+    {
+      if(form.password==form.confirmPassword)
+      {
+        (async () => {
+          const a = await dispatch(signup(form, history));
+          console.log(a);
+          if(a!=null)
+            setError(a);
+          else  
+          {
+            setError("");
+            setIsSignup((prevIsSignup) => !prevIsSignup);
+          }
+        })();
+      }
+      else
+        setError("The passwords don't match!!");
+    } 
+    else 
+    {
+      (async () => {
+        const a = await dispatch(signin(form, history));
+        console.log(a);
+        if(a!=null)
+          setError(a);
+      })();
     }
   };
 
   const googleSuccess = async (res) => {
     const result = res?.profileObj;
-    const token = res?.tokenId;
-    console.log(result);
-    console.log(token);
-    try {
-      dispatch({ type: AUTH, data: { result, token } });
-
-      history.push('/dashboard');
-    } catch (error) {
-      console.log(error);
-    }
+    // const token = res?.tokenId;
+    // console.log(result);
+    // console.log(result.email);
+    // console.log(result.name);
+    // console.log(result.googleId);
+    // console.log(token);
+    // console.log(res);
+    // try {
+    //   // dispatch({ type: AUTH, data: { result, token } });
+    //   history.push('/dashboard');
+    //   history.go();
+    // } catch (error) {
+    //   console.log(  error);
+    // }
+      (async () => {
+        const a = await dispatch(gSignin(result, history));
+        console.log(a);
+        if(a!=null)
+          setError(a);
+      })();
   };
 
   const googleError = () => alert('Google Sign In was unsuccessful. Try again later');
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    console.log(form);
+  }
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -72,21 +111,28 @@ const Auth = (props) => {
               <>
                 <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
                 <Input name="lastName" label="Last Name" handleChange={handleChange} half />
+                <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
+                <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
+                <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} /> 
+                
+                <FormControl className={classes.formControl} required>
+                  <InputLabel>Type of user</InputLabel> 
+                  <Select name="user" value={form.user} className={classes.formControl} onChange={handleChange}>
+                    <MenuItem value={0}>Student</MenuItem>
+                    <MenuItem value={1}>Service Provider</MenuItem>
+                    <MenuItem value={2}>Admin</MenuItem>
+                  </Select>
+                </FormControl>
               </>
             )}
-            <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
-            <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
-            { isSignup && (
+            { !isSignup && (
               <>
-                <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" /> 
-                <Select labelId="demo-simple-select-label" id="demo-simple-select"  handleChange={handleChange} >
-                  <MenuItem value={0}>Student</MenuItem>
-                  <MenuItem value={1}>Service Provider</MenuItem>
-                  <MenuItem value={30}>Admin</MenuItem>
-                </Select>
+                <Input name="email" label="Email Address" handleChange={handleChange} type="email" autoFocus />
+                <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
               </>
             )}
           </Grid>
+          <div className={classes.errorDiv}>{error}</div>
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
             { isSignup ? 'Sign Up' : 'Sign In' }
           </Button>

@@ -27,4 +27,12 @@ export default makeStyles((theme) => ({
   googleButton: {
     marginBottom: theme.spacing(2),
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  errorDiv: {
+    margin: theme.spacing(1),
+    color: 'red'
+  },
 }));

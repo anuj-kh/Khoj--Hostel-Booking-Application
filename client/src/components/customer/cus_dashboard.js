@@ -5,11 +5,13 @@ import Main from './Main.js';
 import MyAccount from './accounts';
 import Bookings from './bookings';
 import Reviews from './reviews';
+import { useHistory } from 'react-router-dom';
 
-function cus_dashboard() {
+function Dashboard() {
+  const history = useHistory();
   return (
-    <div className="cus_dashboard">
-      <BrowserRouter>
+    <div className="Dashboard">
+      <BrowserRouter history={history}>
         {/* <Sidebar /> */}
         <Switch>
           <Route path='/dashboard/bookings' component={Bookings} />
@@ -22,4 +24,4 @@ function cus_dashboard() {
   );
 }
 
-export default cus_dashboard;
+export default Dashboard;

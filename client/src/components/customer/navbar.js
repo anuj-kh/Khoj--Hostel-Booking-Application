@@ -50,6 +50,7 @@ const Navbar = () => {
         dispatch({ type: actionType.LOGOUT });
     
         history.push('/auth');
+        history.go();
     
         setUser(null);
     };
