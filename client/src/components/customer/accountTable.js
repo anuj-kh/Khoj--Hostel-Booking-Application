@@ -30,11 +30,11 @@ function createData(name, value) {
 
 export default function AccountTable() {
     const [user, setUser] = useState({})
-
+    const localStorageId = JSON.parse(localStorage.getItem('profile')).result._id
     useEffect(() => {
         const fetchUser = async () => {
             const res = await axios.get(
-                `/dashboard/account/6081811e7ae81e03a84122c9`,
+                `/dashboard/account/${localStorageId}`,
             )
 
             setUser(res.data)
