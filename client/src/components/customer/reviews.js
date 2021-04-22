@@ -28,7 +28,7 @@ const Reviews = () => {
     useEffect(() => {
         const fetchReviews = async () => {
             const res = await axios.get(
-                `/dashboard/reviews/60810ee6b12b745b2006780b`,
+                `/dashboard/reviews/6081811e7ae81e03a84122c9`,
             )
 
             setReviews(res.data)

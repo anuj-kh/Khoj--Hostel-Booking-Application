@@ -28,13 +28,13 @@ function createData(name, value) {
     return { name, value }
 }
 
-export default function AccountTable(props) {
+export default function AccountTable() {
     const [user, setUser] = useState({})
 
     useEffect(() => {
         const fetchUser = async () => {
             const res = await axios.get(
-                `/dashboard/account/60810ee6b12b745b2006780b`,
+                `/dashboard/account/6081811e7ae81e03a84122c9`,
             )
 
             setUser(res.data)
