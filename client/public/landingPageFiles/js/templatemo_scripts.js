@@ -53,10 +53,11 @@ jQuery(document).ready(function(){
         var scroll_to = $(target_element).offset().top;
         if($(window).scrollTop() != scroll_to && target_element !== undefined){
             // Chrome scroll to calculation and other browser scroll to calculation is different.
+            var body_scroll_target;
             if($.templatemo_is_chrome){
-                var body_scroll_target = scroll_to;
+                body_scroll_target = scroll_to;
             }else{
-                var body_scroll_target = $("body").scrollTop()+scroll_to;
+                body_scroll_target = $("body").scrollTop()+scroll_to;
             }
             $('html,body').animate({scrollTop:body_scroll_target},1000);
         }

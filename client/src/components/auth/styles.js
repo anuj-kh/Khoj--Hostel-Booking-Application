@@ -35,4 +35,8 @@ export default makeStyles((theme) => ({
     margin: theme.spacing(1),
     color: 'red'
   },
+  successDiv: {
+    marginBottom: theme.spacing(3),
+    color: 'green'
+  }
 }));

@@ -32,6 +32,7 @@ const initialState = {
 
 const Auth = () => {
     const [error, setError] = useState('')
+    const [success, setSuccess] = useState('')
     const [form, setForm] = useState(initialState)
     const [isSignup, setIsSignup] = useState(false)
     const dispatch = useDispatch()
@@ -41,46 +42,56 @@ const Auth = () => {
     const [showPassword, setShowPassword] = useState(false)
     const handleShowPassword = () => setShowPassword(!showPassword)
 
-    const switchMode = () => {
-        setForm(initialState)
-        setError('')
-        setIsSignup((prevIsSignup) => !prevIsSignup)
-        setShowPassword(false)
-    }
+  const switchMode = () => {
+    setForm(initialState);
+    setError("");
+    setSuccess("");
+    setIsSignup((prevIsSignup) => !prevIsSignup);
+    setShowPassword(false);
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(form)
-        if (isSignup) {
-            if (form.password == form.confirmPassword) {
-                ;(async () => {
-                    const a = await dispatch(signup(form, history))
-                    console.log(a)
-                    if (a != null) setError(a)
-                    else {
-                        setError('')
-                        setIsSignup((prevIsSignup) => !prevIsSignup)
-                    }
-                })()
-            } else setError("The passwords don't match!!")
-        } else {
-            ;(async () => {
-                const a = await dispatch(signin(form, history))
-                console.log(a)
-                if (a != null) setError(a)
-            })()
-        }
+  const handleSubmit = (e) => {
+    setSuccess("");
+    setError("");
+    e.preventDefault();
+    console.log(form);
+    if (isSignup) 
+    {
+      if(form.password==form.confirmPassword)
+      {
+        (async () => {
+          const a = await dispatch(signup(form, history));
+          console.log(a);
+          if(a!=null)
+            setError(a);
+          else  
+          {
+            setSuccess("Succesfully registered!!");
+            setIsSignup((prevIsSignup) => !prevIsSignup);
+          }
+        })();
+      }
+      else
+        setError("The passwords don't match!!");
+    } 
+    else 
+    {
+      (async () => {
+        const a = await dispatch(signin(form, history));
+        console.log(a);
+        if(a!=null)
+          setError(a);
+      })();
     }
-
+  }
     const googleSuccess = async (res) => {
         const result = res?.profileObj
-        ;(async () => {
+        (async () => {
             const a = await dispatch(gSignin(result, history))
             console.log(a)
             if (a != null) setError(a)
         })()
     }
-
     const googleError = () =>
         alert('Google Sign In was unsuccessful. Try again later')
 
@@ -99,6 +110,7 @@ const Auth = () => {
                     {isSignup ? 'Sign up' : 'Sign in'}
                 </Typography>
                 <form className={classes.form} onSubmit={handleSubmit}>
+                <div className={classes.successDiv}>{success}</div>
                     <Grid container spacing={2}>
                         {isSignup && (
                             <>
