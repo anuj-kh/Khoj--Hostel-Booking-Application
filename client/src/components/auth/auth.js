@@ -85,7 +85,7 @@ const Auth = () => {
     }
   }
     const googleSuccess = async (res) => {
-        const result = res?.profileObj
+        const result = res?.profileObj;
         (async () => {
             const a = await dispatch(gSignin(result, history))
             console.log(a)

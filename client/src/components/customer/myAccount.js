@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from './navbar'
 import AccountTable from './accountTable.js'
 import { makeStyles, Button } from '@material-ui/core'
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     cent: {
@@ -12,6 +13,11 @@ const useStyles = makeStyles({
     cent2: {
         margin: '2rem',
     },
+    linkText: {
+        textDecoration: 'none',
+        textTransform: 'uppercase',
+        color: 'white'
+      }
 })
 const MyAccount = () => {
     const classes = useStyles()
@@ -26,12 +32,16 @@ const MyAccount = () => {
             <AccountTable />
 
             <div className={classes.cent}>
+            <Link to={"/dashboard/payment"} className={classes.linkText} >
                 <Button variant='contained' className={classes.cent2}>
                     Pay your charges
                 </Button>
+            </Link>
+            <Link to={"/dashboard/newBooking"} className={classes.linkText} >
                 <Button variant='contained' className={classes.cent2}>
                     New Booking
                 </Button>
+            </Link>
             </div>
         </div>
     )
