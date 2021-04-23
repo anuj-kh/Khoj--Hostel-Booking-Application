@@ -28,6 +28,7 @@ const initialState = {
     password: '',
     confirmPassword: '',
     user: '',
+    phone:''
 }
 
 const Auth = () => {
@@ -57,22 +58,27 @@ const Auth = () => {
     console.log(form);
     if (isSignup) 
     {
-      if(form.password==form.confirmPassword)
-      {
-        (async () => {
-          const a = await dispatch(signup(form, history));
-          console.log(a);
-          if(a!=null)
-            setError(a);
-          else  
-          {
-            setSuccess("Succesfully registered!!");
-            setIsSignup((prevIsSignup) => !prevIsSignup);
-          }
-        })();
-      }
-      else
-        setError("The passwords don't match!!");
+        if(form.phone.length!=10)
+            setError("Phone number should be of size 10!!");
+        else
+        {
+            if(form.password==form.confirmPassword)
+            {
+                (async () => {
+                const a = await dispatch(signup(form, history));
+                console.log(a);
+                if(a!=null)
+                    setError(a);
+                else  
+                {
+                    setSuccess("Succesfully registered!!");
+                    setIsSignup((prevIsSignup) => !prevIsSignup);
+                }
+                })();
+            }
+            else
+                setError("The passwords don't match!!");
+        }
     } 
     else 
     {
@@ -132,6 +138,12 @@ const Auth = () => {
                                     label='Email Address'
                                     handleChange={handleChange}
                                     type='email'
+                                />
+                                <Input
+                                    name='phone'
+                                    label='Phone number'
+                                    handleChange={handleChange}
+                                    type='number'
                                 />
                                 <Input
                                     name='password'

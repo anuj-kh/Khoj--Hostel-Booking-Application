@@ -14,6 +14,8 @@ const signin = async (req, res) => {
         if (!oldUser)
             return res.status(200).json({ message: "User doesn't exist!!" })
 
+        if(!oldUser.password)
+            return res.status(200).json({ message: "This user is registered via Google login.\n No password exists for this user.\n Please use Google login." })
         const isPasswordCorrect = await bcrypt.compare(
             password,
             oldUser.password,
@@ -37,7 +39,7 @@ const signin = async (req, res) => {
 }
 
 const signup = async (req, res) => {
-    const { email, password, firstName, lastName, user } = req.body
+    const { email, password, firstName, lastName, user, phone } = req.body
     try {
         const oldUser = await UserModal.uss.findOne({ email })
 
@@ -50,6 +52,7 @@ const signup = async (req, res) => {
             password: hashedPassword,
             name: `${firstName} ${lastName}`,
             user,
+            phone
         })
 
         const token = jwt.sign(
@@ -71,10 +74,14 @@ const gSignin = async (req, res) => {
     const { email, name, googleId } = req.body
 
     try {
-        const oldUser = await UserModal.uss.findOne({ email })
-        let result = oldUser
-        if (!oldUser) {
+        let result = await UserModal.uss.findOne({ email })
+        if (!result) {
             result = await UserModal.uss.create({ name, email, googleId })
+        }
+        else
+        {
+            await UserModal.uss.updateOne({email}, { $set: {googleId:googleId} } )
+            result = await UserModal.uss.findOne({ email })
         }
         const token = jwt.sign(
             { email: result.email, id: result._id },

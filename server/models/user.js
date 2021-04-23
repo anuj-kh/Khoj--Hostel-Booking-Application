@@ -11,10 +11,15 @@ const mongoose = require('mongoose')
 const userSchema = mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
+    phone: { type: String, default: '' },
     password: { type: String },
     user: { type: String, default: 'Student' },
     googleId: { type: String },
     id: { type: String },
+    currentHostel: {type: String, default:'Not registered'},
+    tiffinService: {type: String, default:'Not registered'},
+    credit: {type: String, default:'0'},
+    daysLeft: {type: String, default:'0'},
     reviews: [
         {
             hostel: {
