@@ -16,12 +16,13 @@ const useStyles = makeStyles((theme) => ({
   
 const OverviewBar = () => {
     const classes = useStyles();
+    const localStoragee = JSON.parse(localStorage.getItem('profile')).result;
     return (
         <div className={classes.root}>  
-            <OverviewBarTile title='Credit' value='600'/>
-            <OverviewBarTile title='Days Left' value='16'/>
-            <OverviewBarTile title='Current Hostel' value="Sharma's"/>
-            <OverviewBarTile title='Tiffin Service' value="Singh's"/>
+            <OverviewBarTile title='Credit' value={`${localStoragee.credit}`} />
+            <OverviewBarTile title='Days Left' value={`${localStoragee.daysLeft}`} />
+            <OverviewBarTile title='Current Hostel' value={`${localStoragee.currentHostel}`} />
+            <OverviewBarTile title='Tiffin Service' value={`${localStoragee.tiffinService}`} />
         </div>  
     )
 }

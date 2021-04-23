@@ -22,7 +22,7 @@ function App() {
                 />
                 {/* console.log(localStorage.getItem('profile')) */}
                 <Route
-                    path='/dashboard/:id'
+                    path='/dashboard'
                     render={() =>
                         !localStorage.getItem('profile') ? (
                             <Redirect to='/auth' />

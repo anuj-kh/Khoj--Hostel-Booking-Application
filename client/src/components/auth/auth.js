@@ -28,6 +28,7 @@ const initialState = {
     password: '',
     confirmPassword: '',
     user: '',
+    phone:''
 }
 
 const Auth = () => {
@@ -50,34 +51,51 @@ const Auth = () => {
         setShowPassword(false)
     }
 
-    const handleSubmit = (e) => {
-        setSuccess('')
-        setError('')
-        e.preventDefault()
-        console.log(form)
-        if (isSignup) {
-            if (form.password == form.confirmPassword) {
-                ;(async () => {
-                    const a = await dispatch(signup(form, history))
-                    console.log(a)
-                    if (a != null) setError(a)
-                    else {
-                        setSuccess('Succesfully registered!!')
-                        setIsSignup((prevIsSignup) => !prevIsSignup)
-                    }
-                })()
-            } else setError("The passwords don't match!!")
-        } else {
-            ;(async () => {
-                const a = await dispatch(signin(form, history))
-                console.log(a)
-                if (a != null) setError(a)
-            })()
+
+  const handleSubmit = (e) => {
+    setSuccess("");
+    setError("");
+    e.preventDefault();
+    console.log(form);
+    if (isSignup) 
+    {
+        if(form.phone.length!=10)
+            setError("Phone number should be of size 10!!");
+        else
+        {
+            if(form.password==form.confirmPassword)
+            {
+                (async () => {
+                const a = await dispatch(signup(form, history));
+                console.log(a);
+                if(a!=null)
+                    setError(a);
+                else  
+                {
+                    setSuccess("Succesfully registered!!");
+                    setIsSignup((prevIsSignup) => !prevIsSignup);
+                }
+                })();
+            }
+            else
+                setError("The passwords don't match!!");
         }
+    } 
+    else 
+    {
+      (async () => {
+        const a = await dispatch(signin(form, history));
+        console.log(a);
+        if(a!=null)
+          setError(a);
+      })();
+
     }
     const googleSuccess = async (res) => {
         const result = res?.profileObj;
-        ;(async () => {
+
+        (async () => {
+
             const a = await dispatch(gSignin(result, history))
             console.log(a)
             if (a != null) setError(a)
@@ -123,6 +141,12 @@ const Auth = () => {
                                     label='Email Address'
                                     handleChange={handleChange}
                                     type='email'
+                                />
+                                <Input
+                                    name='phone'
+                                    label='Phone number'
+                                    handleChange={handleChange}
+                                    type='number'
                                 />
                                 <Input
                                     name='password'
