@@ -1,13 +1,5 @@
 const mongoose = require('mongoose')
 
-// const userSchema = mongoose.Schema({
-//     name: { type: String, required: true },
-//     email: { type: String, required: true },
-//     password: { type: String, required: true },
-//     user: { type: String, required: true },
-//     id: { type: String },
-// })
-
 const userSchema = mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
@@ -41,6 +33,14 @@ const userSchema = mongoose.Schema({
     ],
 })
 
+const userSchema2 = mongoose.Schema({
+    name: { type: String, required: true },
+    address: { type: String, required: true },
+    owner: { type: String, required: true },
+    image: { type: String, required: true },
+})
+
 var uss = mongoose.model('User', userSchema)
+var uss2 = mongoose.model('hostels', userSchema2)
 
 exports.uss = uss

@@ -67,7 +67,6 @@ const signup = async (req, res) => {
 
         console.log(error)
     }
-    console.log('ending signup backend')
 }
 
 const gSignin = async (req, res) => {
