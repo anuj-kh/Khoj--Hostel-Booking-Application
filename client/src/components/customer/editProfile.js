@@ -37,31 +37,33 @@ export default function EditProfile() {
   const classes = useStyles();
   const [user, setUser] = useState({})
   const localStorageId = JSON.parse(localStorage.getItem('profile')).result._id
-  const [value, setValue] = React.useState({
+  const [value, setValue] = useState({
     name: ``,
     phone: ``,
     email: ``,
     address: ``
-})
+});
  
-  useEffect(() => {
-      const fetchUser = async () => {
+  // useEffect(() => {
+      (async () => {
           const res = await axios.get(
               `/dashboard/account/${localStorageId}`,
           )
 
-          setUser(res.data)
-      }
+          setValue(res.data)
+      })();
         
-      fetchUser()
+      // fetchUser()
       // setValue({name:`${user.name}`,phone:`${user.phone}`,email:`${user.email}`,address:`${user.address}`})
-  })
+  // })
   
 
 
 const handleChange = (event) => {
+  console.log("hello")
     const newValue = { ...value }
     newValue[event.target.id] = event.target.value
+    console.log(newValue)
     setValue(newValue)
     console.log(value)
 }

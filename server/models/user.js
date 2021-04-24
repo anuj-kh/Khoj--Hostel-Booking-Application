@@ -5,12 +5,32 @@ const userSchema = mongoose.Schema({
     email: { type: String, required: true },
     phone: { type: String, default: '' },
     password: { type: String },
-    address:{type:String},
+    address:{type:String, default: ''},
     user: { type: String, default: 'Student' },
     googleId: { type: String },
     id: { type: String },
-    currentHostel: {type: String, default:'Not registered'},
-    tiffinService: {type: String, default:'Not registered'},
+    currentHostel: {
+        hostel: {type: mongoose.Schema.Types.ObjectId, ref:'hostels'},
+        startDate: {type:Date},
+        endDate: {type:Date},
+        bookingDate: {type:Date},
+    },
+    oldHostels: [
+        {
+            hostel: {type: mongoose.Schema.Types.ObjectId, ref:'hostels'},
+            startDate: {type:Date},
+            endDate: {type:Date},
+            bookingDate: {type:Date},
+        }
+    ],
+    futureHostels: [
+        {
+            hostel: {type: mongoose.Schema.Types.ObjectId, ref:'hostels'},
+            startDate: {type:Date},
+            endDate: {type:Date},
+            bookingDate: {type:Date},
+        }
+    ],
     credit: {type: String, default:'300'},
     daysLeft: {type: String, default:'0'},
     reviews: [
@@ -39,6 +59,30 @@ const userSchema2 = mongoose.Schema({
     address: { type: String, required: true },
     owner: { type: String, required: true },
     image: { type: String, required: true },
+    currentStudents: [
+        {
+            student: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
+            startDate: {type:Date},
+            endDate: {type:Date},
+            bookingDate: {type:Date},
+        }
+    ],
+    oldStudents: [
+        {
+            student: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
+            startDate: {type:Date},
+            endDate: {type:Date},
+            bookingDate: {type:Date},
+        }
+    ],
+    futureStudents: [
+        {
+            student: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
+            startDate: {type:Date},
+            endDate: {type:Date},
+            bookingDate: {type:Date},
+        }
+    ]
 })
 
 var uss = mongoose.model('User', userSchema)

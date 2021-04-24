@@ -33,10 +33,12 @@ export default makeStyles((theme) => ({
   },
   errorDiv: {
     margin: theme.spacing(1),
-    color: 'red'
+    color: 'red',
+    fontWeight: 'bold'
   },
   successDiv: {
     marginBottom: theme.spacing(3),
-    color: 'green'
+    color: 'green',
+    fontWeight: 'bold'
   }
 }));

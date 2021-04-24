@@ -31,8 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Reviews = () => {
     const [reviews, setReviews] = useState([])
-    const localStorageId = JSON.parse(localStorage.getItem('profile')).result
-        ._id
+    const localStorageId = JSON.parse(localStorage.getItem('profile')).result._id
     useEffect(() => {
         const fetchReviews = async () => {
             const res = await axios.get(`/dashboard/reviews/${localStorageId}`)

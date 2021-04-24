@@ -20,9 +20,8 @@ const OverviewBar = () => {
     return (
         <div className={classes.root}>  
             <OverviewBarTile title='Credit' value={`${localStoragee.credit}`} />
+            <OverviewBarTile title='Current Hostel' value={`${localStoragee.currentHostel}`} /> 
             <OverviewBarTile title='Days Left' value={`${localStoragee.daysLeft}`} />
-            <OverviewBarTile title='Current Hostel' value={`${localStoragee.currentHostel}`} />
-            <OverviewBarTile title='Tiffin Service' value={`${localStoragee.tiffinService}`} />
         </div>  
     )
 }
