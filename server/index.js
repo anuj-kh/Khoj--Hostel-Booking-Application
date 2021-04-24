@@ -5,6 +5,7 @@ const cors = require('cors')
 
 const userRouter = require('./routes/user.js')
 const userDashboard = require('./routes/dashboard.js')
+const hostel = require('./routes/hostel.js')
 
 const app = express()
 
@@ -14,6 +15,7 @@ app.use(cors())
 
 app.use('/user', userRouter)
 app.use('/dashboard', userDashboard)
+app.use('/hostel', hostel)
 const CONNECTION_URL =
     'mongodb+srv://user1:khoj123@users.kn06n.mongodb.net/users?retryWrites=true&w=majority'
 const PORT = 5000

@@ -1,62 +1,91 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Navbar from './navbar'
-import { makeStyles } from '@material-ui/core'
-import DatePicker from "react-datepicker";
-import { Grid } from '@material-ui/core'
+import { makeStyles, Grid, Paper } from '@material-ui/core'
+import DatePicker from "react-datepicker";  
 import "react-datepicker/dist/react-datepicker.css";
-// import hostel1 from 'hostel1.jpg';
+import { Link } from 'react-router-dom';
+import NewBookingCard from './newBookingCard';
+import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-    display: 'flex',
+    // display: 'flex',
+    alignItems:'center',
     justifyContent: 'space-between',
       "& > *": {
-        marginTop: theme.spacing(10),
+        marginTop: theme.spacing(2),
         marginLeft: theme.spacing(10),
         marginRight: theme.spacing(10),
       }
-    },
-    root2: {
-        display: 'flex',
-        justifyContent: 'space-between',
-          "& > *": {
-            marginTop: theme.spacing(2),
-            marginLeft: theme.spacing(10),
-            marginRight: theme.spacing(10),
-        }
     },
     cent: {
         display: 'flex', 
         justifyContent:'center',
         alignItems:'center'
+    },
+    paper: {
+        padding: theme.spacing(1),
+        textAlign: 'right',
+    },
+    paper2: {
+        marginTop: theme.spacing(1),
+        textAlign: 'center',
+        borderRadius: 25,
     }
 }));
 
 const NewBooking = () => {
     const classes = useStyles();
-    const [startDate, setStartDate] = useState(new Date());
+    const [hostels, setHostels] = useState([])
+    // const [hostel, setHostel] = useState([])
+
+    useEffect(() => {
+        const fetchHostel = async () => {
+            const res = await axios.get(
+                `/hostel/hostels`,
+            )
+            setHostels(res.data)
+        }
+
+        fetchHostel()
+    })
+
+    const [startDate, setStartDate] = useState();
     return (
         <>
         <Navbar />
-        <h1 className={classes.cent} >Search for hostels</h1>
+        <br />
+        <br />
+        <h1 className={classes.cent}>Search for hostels</h1>
+        <br />
+            
         <div className={classes.root}>
-            <h4>Start date:</h4>
-            {/* <DatePicker selected={startDate} onChange={date => setStartDate(date)} minDate={new Date()} /> */}
-            {/* <DatePicker selected={startDate} onChange={date => setStartDate(date)} minDate={new Date()} /> */}
-        </div>
-        <div className={classes.root2}>
-            <DatePicker selected={startDate} onChange={date => setStartDate(date)} minDate={new Date()} />
-            {/* <DatePicker selected={startDate} onChange={date => setStartDate(date)} minDate={new Date()} /> */}
-            {/* <DatePicker selected={startDate} onChange={date => setStartDate(date)} minDate={new Date()} /> */}
+            <Grid container spacing={3}>
+                <Grid item xs={4}>
+                <div className={classes.paper}><h4>Start date:</h4></div>
+                </Grid>
+                <Grid item xs={6}>
+                <DatePicker className={classes.paper2} selected={startDate} onChange={date => setStartDate(date)} minDate={new Date()} />
+                </Grid>
+            </Grid>
+        
         </div>
 
-        {/* <Grid container spacing={2}> */}
-        <div className={classes.root2}>
-            <img src="/hostel1.jpg" alt="hostel1" width="200" height="200" />
-            {/* <div>anuj</div> */}
-            </div>
-            {/* <Input name='firstName' label='First Name' handleChange={handleChange} autoFocus half /> */}
-        {/* </Grid> */}
+
+        { startDate &&
+            hostels.map((rev) => (
+                <div className={classes.root}>
+                    <NewBookingCard
+                        name={rev.name}
+                        source={rev.source}
+                        address={rev.address}
+                        owner={rev.owner}
+                        id={rev._id}
+                    />
+                </div>
+            ))
+        }
+        <br/>
         </>
     )
 }
