@@ -5,6 +5,7 @@ import Bookings from './bookings'
 import Reviews from './reviews'
 import NewBooking from './newBooking'
 import Payment from './payment'
+import Hostel from '../hostel'
 
 function Dashboard() {
     const history = useHistory()
@@ -17,6 +18,7 @@ function Dashboard() {
                     <Route path='/dashboard/account' component={MyAccount} />
                     <Route path='/dashboard/newBooking' component={NewBooking} />
                     <Route path='/dashboard/payment' component={Payment} />
+                    <Route path='/dashboard/hostel/:id' component={Hostel} />
                     <Route path='/dashboard' component={Main} />
                 </Switch>
             </BrowserRouter>

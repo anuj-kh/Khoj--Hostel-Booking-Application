@@ -31,7 +31,7 @@ const NewBookingCard = (props) => {
     const classes = useStyles();
     return (
         <>
-        <Link to={"/dashboard/payment"}  >
+        <Link to={`/dashboard/hostel/${props.id}`}  >
             <Paper className={classes.customBorderRadius} elevation={10}>
                     <Grid item xs={6}>
                         <img className={classes.paper} src={props.source} alt={props.name} width="200" height="200" />
@@ -39,10 +39,11 @@ const NewBookingCard = (props) => {
                     <Grid item xs={6}>
                         <div className={classes.paper3}>
                             <h2 className={classes.temp}>{props.name}</h2>
-                            <div className={classes.temp}>{props.address1}</div>
-                            <div className={classes.temp}>{props.address2}</div>
+                            <div className={classes.temp}>{props.address}</div>
+                            <div className={classes.temp}>Owner: {props.owner}</div>
+                            {/* <div className={classes.temp}>{props.address2}</div>
                             <div className={classes.temp}>{props.address3}</div>
-                            <div className={classes.temp}>{props.address4}</div>
+                            <div className={classes.temp}>{props.address4}</div> */}
                         </div>
                     </Grid>
             </Paper>

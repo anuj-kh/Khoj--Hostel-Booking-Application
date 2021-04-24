@@ -44,3 +44,4 @@ var uss = mongoose.model('User', userSchema)
 var uss2 = mongoose.model('hostels', userSchema2)
 
 exports.uss = uss
+exports.uss2 = uss2
