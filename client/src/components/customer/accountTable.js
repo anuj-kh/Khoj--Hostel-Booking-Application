@@ -48,7 +48,7 @@ export default function AccountTable() {
         createData('Name ', `${user.name}`),
         createData('Phone No. ', `${user.phone}`),
         createData('Email ', `${user.email}`),
-        createData('Address ', '1/random addr/city. PIN- xxxxxx'),
+        createData('Address ', `${user.address}`),
     ]
 
     return (

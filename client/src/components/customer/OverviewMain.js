@@ -37,7 +37,7 @@ class OverviewMain extends Component {
                     <InfoWindow onClose={this.onInfoWindowClose}></InfoWindow>
                 </Map>
 
-                <Drops className='drop' title='Hostels' />
+                <Drops className='drop'  title='Hostels' />
                 <Drops className='drop2' title='Tiffins' />
             </div>
         )

@@ -60,9 +60,11 @@ const Reviews = () => {
         try {
             const response = await axios.patch(`/dashboard/reviews/${localStorageId}`, value);
             console.log(' Returned data:', response);
+           
             setValue({
                 hostel: '',
                 comment: '',
+                
             })
             {handleChange()}
           } catch (e) {
@@ -95,17 +97,18 @@ const Reviews = () => {
                 <div>
                     <TextField
                         id='hostel'
-                        // label='Hostel'
+                        label='Hostel'
                         placeholder='Hostel Name'
                         value={value.hostel}
                         multiline
+                        
                         variant='outlined'
                         onChange={handleChange}
                     />
 
                     <TextField
                         id='comment'
-                        // label='Review'
+                        label='Review'
                         style={{ marginTop: 10 }}
                         placeholder='Please write your review'
                         value={value.comment}

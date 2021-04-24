@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles({
     cent: {
         display: 'flex',
+        
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -40,6 +41,11 @@ const MyAccount = () => {
             <Link to={"/dashboard/newBooking"} className={classes.linkText} >
                 <Button variant='contained' className={classes.cent2}>
                     New Booking
+                </Button>
+            </Link>
+            <Link to={"/dashboard/editProfile"} className={classes.linkText} >
+                <Button variant='contained' className={classes.cent2}>
+                    Edit Profile
                 </Button>
             </Link>
             </div>
