@@ -40,9 +40,7 @@ const Reviews = () => {
         setReviews(res.data)
     }
     useEffect(() => {
-        const ac = new AbortController()
-
-        Promise.all([fetchReviews({ signal: ac.signal })]).then()
+        fetchReviews()
     })
     const classes = useStyles()
 
