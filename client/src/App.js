@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, Redirect, Route, useHistory } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import Dashboard from './components/customer/dashboard'
-import Auth from './components/auth/auth'
+import Auth from './components/auth/auth.js'
 
 function App() {
     const history = useHistory()
