@@ -1,4 +1,4 @@
-.OverviewMain {
+.map {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -7,22 +7,8 @@
     margin-top: 8px;
     border: #acadb8 solid 1px;
     border-radius: 5px;
-    height: 302px;
-    background:#acadb8;
+    /* height: 302px; */
+    background: #acadb8;
 
     /* padding :10px; */
 }
-.OverviewMain .drop{
-    position: relative;
-    width: 100px;
-    left: 25%;
-    margin: 10px;
-}
-.OverviewMain .drop2{
-    position: relative;
-    width: 100px;
-    left: 62%;
-    
-    
-}
-

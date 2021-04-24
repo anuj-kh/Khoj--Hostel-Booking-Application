@@ -33,14 +33,16 @@ const Reviews = () => {
     const [reviews, setReviews] = useState([])
     const localStorageId = JSON.parse(localStorage.getItem('profile')).result
         ._id
+
+    const fetchReviews = async () => {
+        const res = await axios.get(`/dashboard/reviews/${localStorageId}`)
+
+        setReviews(res.data)
+    }
     useEffect(() => {
-        const fetchReviews = async () => {
-            const res = await axios.get(`/dashboard/reviews/${localStorageId}`)
+        const ac = new AbortController()
 
-            setReviews(res.data)
-        }
-
-        fetchReviews()
+        Promise.all([fetchReviews({ signal: ac.signal })]).then()
     })
     const classes = useStyles()
 
@@ -58,20 +60,24 @@ const Reviews = () => {
     const handleClick = async (event) => {
         event.preventDefault()
         try {
-            const response = await axios.patch(`/dashboard/reviews/${localStorageId}`, value);
-            console.log(' Returned data:', response);
-           
+            const response = await axios.patch(
+                `/dashboard/reviews/${localStorageId}`,
+                value,
+            )
+            console.log(' Returned data:', response)
+
             setValue({
                 hostel: '',
                 comment: '',
-                
             })
-            {handleChange()}
-          } catch (e) {
-            console.log(` Axios request failed: ${e}`);
-          }
-        
+            {
+                handleChange()
+            }
+        } catch (e) {
+            console.log(` Axios request failed: ${e}`)
+        }
     }
+    var i = 0
 
     return (
         <>
@@ -83,7 +89,7 @@ const Reviews = () => {
             <br />
 
             {reviews.map((rev) => (
-                <div className={classes.root}>
+                <div className={classes.root} key={i++}>
                     <ReviewCard
                         title={rev.hostel}
                         value={rev.comment}
@@ -101,7 +107,6 @@ const Reviews = () => {
                         placeholder='Hostel Name'
                         value={value.hostel}
                         multiline
-                        
                         variant='outlined'
                         onChange={handleChange}
                     />
