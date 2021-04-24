@@ -29,4 +29,28 @@ router.get(
     }),
 )
 
+router.patch('/reviews/:id', async (req, res) => {
+    try {
+        const user = await UserModal.uss.updateOne(
+            { _id: req.params.id },
+            { $push: { reviews: req.body } },
+        )
+        res.send(user)
+    } catch (err) {
+        res.json({ message: err.message, data: req.body, id: req.params.id })
+    }
+})
+
+router.patch('/editProfile/:id', async (req, res) => {
+    try {
+        const user = await UserModal.uss.updateOne(
+            { _id: req.params.id },
+            { $set: { name: req.body.name, phone:req.body.phone,email:req.body.email,address:req.body.address } },
+        )
+        res.send(user)
+    } catch (err) {
+        res.json({ message: err.message, data: req.body, id: req.params.id })
+    }
+})
+
 module.exports = router
