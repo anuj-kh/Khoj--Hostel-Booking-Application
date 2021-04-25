@@ -40,19 +40,40 @@ const Bookings = () => {
             <h2 className={classes.cent}>Ongoing Bookings</h2>
             <br />
 
+            {
+            currentBook!=null && 
             <BookingTable hos={currentBook} />
+            }
+            {
+            currentBook==null && 
+            <h4 className={classes.cent}>No bookings of this type!!</h4>
+            }
             
             <br />
             <h2 className={classes.cent}>Future Bookings</h2>
             <br />
             
+            {
+            futureBook!=null && 
             <BookingTable hos={futureBook} />
+            }
+            {
+            futureBook==null && 
+            <h4 className={classes.cent}>No bookings of this type!!</h4>
+            }
 
             <br />
             <h2 className={classes.cent}>Past Bookings</h2>
             <br />
             
+            {
+            prevBook!=null && 
             <BookingTable hos={prevBook} />
+            }
+            {
+            prevBook==null && 
+            <h4 className={classes.cent}>No bookings of this type!!</h4>
+            }
 
             <br />
         </div>
