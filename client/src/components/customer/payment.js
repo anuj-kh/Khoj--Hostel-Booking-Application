@@ -70,11 +70,10 @@ const Payment = () => {
                             )
                             setDue('0')
                         }}
-                        currency='Rupee'
-                        options={{
-                            clientId:
-                                'AXWKfCDIvRNyym5FJy-xsHTkOIzhkGiT-b_HBuMXlZfnIn5XHZiFUF6y5TySSEP2Hmm52MU1MaG_IEz3',
-                        }}
+                        // options={{
+                        //     clientId:
+                        //         'AXWKfCDIvRNyym5FJy-xsHTkOIzhkGiT-b_HBuMXlZfnIn5XHZiFUF6y5TySSEP2Hmm52MU1MaG_IEz3',
+                        // }}
                     />
                 </div>
             </div>
