@@ -11,26 +11,24 @@ const userSchema = mongoose.Schema({
     id: { type: String },
     currentHostel: {
         hostel: {type: mongoose.Schema.Types.ObjectId, ref:'hostels'},
-        startDate: {type:Date},
-        endDate: {type:Date},
-        bookingDate: {type:Date},
+        startDate: {type:String},
+        endDate: {type:String},
+        bookingDate: {type:String},
     },
-    oldHostels: [
-        {
-            hostel: {type: mongoose.Schema.Types.ObjectId, ref:'hostels'},
-            startDate: {type:Date},
-            endDate: {type:Date},
-            bookingDate: {type:Date},
-        }
-    ],
-    futureHostels: [
-        {
-            hostel: {type: mongoose.Schema.Types.ObjectId, ref:'hostels'},
-            startDate: {type:Date},
-            endDate: {type:Date},
-            bookingDate: {type:Date},
-        }
-    ],
+    oldHostels: {
+        hostel: {type: mongoose.Schema.Types.ObjectId, ref:'hostels'},
+        startDate: {type:String},
+        endDate: {type:String},
+        bookingDate: {type:String},
+    }
+    ,
+    futureHostels: {
+        hostel: {type: mongoose.Schema.Types.ObjectId, ref:'hostels'},
+        startDate: {type:String},
+        endDate: {type:String},
+        bookingDate: {type:String},
+    }
+    ,
     credit: {type: String, default:'300'},
     daysLeft: {type: String, default:'0'},
     reviews: [
@@ -62,25 +60,25 @@ const userSchema2 = mongoose.Schema({
     currentStudents: [
         {
             student: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
-            startDate: {type:Date},
-            endDate: {type:Date},
-            bookingDate: {type:Date},
+            startDate: {type:String},
+            endDate: {type:String},
+            bookingDate: {type:String},
         }
     ],
     oldStudents: [
         {
             student: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
-            startDate: {type:Date},
-            endDate: {type:Date},
-            bookingDate: {type:Date},
+            startDate: {type:String},
+            endDate: {type:String},
+            bookingDate: {type:String},
         }
     ],
     futureStudents: [
         {
             student: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
-            startDate: {type:Date},
-            endDate: {type:Date},
-            bookingDate: {type:Date},
+            startDate: {type:String},
+            endDate: {type:String},
+            bookingDate: {type:String},
         }
     ]
 })

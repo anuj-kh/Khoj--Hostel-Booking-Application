@@ -24,12 +24,15 @@ const Bookings = () => {
 
             setCurrentBook(res.data.currentHostel); 
             setPrevBook(res.data.oldHostels);    
-            setFutureBook(res.data.futureHostels);     
+            setFutureBook(res.data.futureHostels);  
+            // console.log("abcd=",res.data);
+            // console.log("aa=",currentBook);
+            // console.log("ab=",futureBook);
+            // console.log("ac=",prevBook); 
         }
 
         fetchBookings()
     })
-    // console.log(futureBook);
     return (
         <div>
             <Navbar />

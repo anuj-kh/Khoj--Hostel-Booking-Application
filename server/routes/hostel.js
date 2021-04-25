@@ -31,54 +31,47 @@ router.get(
 
 router.patch('/book/:id', async (req, res) => {
     try {
-        const { startDate, endDate,todayDate,localStorageId } = req.body;
-        if(todayDate.substring(0,10)==startDate.substring(0,10))
+        const { st, en,to,localStorageId,flag } = req.body;
+        if(flag==true)
         {
-            console.log("aa")
             const user = await UserModal.uss2.updateOne(
                 { _id: req.params.id },
                 { $push: { 
                     currentStudents: {
-                        startDate, endDate, bookingDate: todayDate, student: localStorageId
+                        startDate: st, endDate: en, bookingDate: to, student: localStorageId
                     }
                 } },
             )
-            console.log("ab")
             const user2 = await UserModal.uss.updateOne(
                 { _id: localStorageId },
                 { $push: { 
                     currentHostel: {
-                        startDate, endDate, bookingDate: todayDate, hostel: req.params.id
+                        startDate: st, endDate: en, bookingDate: to, hostel: req.params.id
                     }
                 } },
             )
         }
         else
         {
-            console.log("ac")
             const user = await UserModal.uss2.updateOne(
                 { _id: req.params.id },
                 { $push: { 
-                    futureStudents: [{
-                        startDate, endDate, bookingDate: todayDate, student: localStorageId
-                    }]
+                    futureStudents: {
+                        startDate: st, endDate: en, bookingDate: to, student: localStorageId
+                    }
                 } },
             )
-            console.log("ad")
             const user2 = await UserModal.uss.updateOne(
                 { _id: localStorageId },
                 { $push: { 
-                    futureHostels: [{
-                        startDate, endDate, bookingDate: todayDate, hostel: req.params.id
-                    }]
+                    futureHostels: {
+                        startDate: st, endDate: en, bookingDate: to, hostel: req.params.id
+                    }
                 } },
             )
-            console.log("all")
         }
-        console.log("ae")
         res.send("You are successfully registered to this hostel!!");
     } catch (err) {
-        console.log("af")
         res.json({ message: err.message, data: req.body, id: req.params.id })
     }
 })

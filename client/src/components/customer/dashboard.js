@@ -5,7 +5,7 @@ import Bookings from './bookings'
 import Reviews from './reviews'
 import NewBooking from './newBooking'
 import Payment from './payment'
-import Hostel from '../hostel'
+import Hostel from './hostel'
 import EditProfile from './editProfile'
 
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Navbar from './customer/navbar'
+import Navbar from './navbar'
 import { makeStyles, Grid, Button } from '@material-ui/core' 
 import "react-datepicker/dist/react-datepicker.css";
 import { Link, useParams } from 'react-router-dom';
@@ -56,10 +56,9 @@ const Hostel = (props) => {
     const { id } = useParams()
     const classes = useStyles();
     const [hostel, setHostel] = useState([])
-    const [flag, setFlag] = useState(false)
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
-    const todayDate=new Date()
+    const todayDate=new Date();
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const localStorageId = JSON.parse(localStorage.getItem('profile')).result._id;
@@ -92,10 +91,16 @@ const Hostel = (props) => {
             setError("End date should be after the start date!!")
         else
         {
+            let flag=false;
+            if( todayDate.getDate()==startDate.getDate() && todayDate.getMonth()==startDate.getMonth() && todayDate.getFullYear()==startDate.getFullYear() )
+                flag=true;
+            let st=startDate.toDateString();
+            let en=endDate.toDateString();
+            let to=todayDate.toDateString();
             setError("");
             (async () => {
                 const res = await axios.patch(
-                    `/hostel/book/${id}`,{startDate,endDate,todayDate,localStorageId}
+                    `/hostel/book/${id}`,{st,en,to,localStorageId,flag}
                 );
                 console.log(res.data)
                 setSuccess(res.data);

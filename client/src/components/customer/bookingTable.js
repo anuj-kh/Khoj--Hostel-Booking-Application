@@ -18,27 +18,6 @@ const useStyles = makeStyles({
 });
 
 export default function BookingTable(props) {
-  // const [hostel,setHostel]=useState()
-  //   useEffect(() => {
-  //     const fetchHostel = async () => {
-  //         const res = await axios.get(
-  //             `/hostel/hostel/${props.hos.hostel}`,
-  //         )
-
-  //         setHostel(res.data)
-  //     }
-
-  //     fetchHostel()
-  // })
-
-  // props.hos.map((row) => (
-  //   async () => {
-  //     const res = await axios.get(
-  //         `/hostel/hostel/${row.hostel}`,
-  //     )
-  //     setHostel(res.data)
-  //   }
-  // ))
 
   const classes = useStyles();
 
@@ -46,7 +25,7 @@ export default function BookingTable(props) {
     <TableContainer component={Paper} className={classes.headingRow}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
-          <TableRow  >
+          <TableRow  key={0}>
             <TableCell className={classes.heading}>Name of the hostel</TableCell>
             <TableCell align="right" className={classes.heading}>Booking Date</TableCell>
             <TableCell align="right" className={classes.heading}>Subscription Start Date</TableCell>
@@ -55,15 +34,15 @@ export default function BookingTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.hos.map((row) => (
-            <TableRow key={row.name}>
+          {props.hos!=null && props.hos.map((row) => (
+            <TableRow key={row.id}>
               <TableCell component="th" scope="row">
-                {}
+                {row.hostel.name}
               </TableCell>
-              <TableCell align="right">{row.bookingDate.toDateString()}</TableCell>
-              <TableCell align="right">{row.startDate.toDateString()}</TableCell>
-              <TableCell align="right">{row.endDate.toDateString()}</TableCell>
-              <TableCell align="right">{}</TableCell>
+              <TableCell align="right">{row.bookingDate}</TableCell>
+              <TableCell align="right">{row.startDate}</TableCell>
+              <TableCell align="right">{row.endDate}</TableCell>
+              <TableCell align="right">Rs. {row.hostel.price}</TableCell>
             </TableRow>
           ))}
         </TableBody>
