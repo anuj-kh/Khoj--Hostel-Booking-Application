@@ -7,9 +7,10 @@ const secret = 'test'
 
 const signin = async (req, res) => {
     const { email, password } = req.body
+    const email2=email;
 
     try {
-        const oldUser = await UserModal.uss.findOne({ email })
+        const oldUser = await UserModal.uss.findOne({ email:email2 })
 
         if (!oldUser)
             return res.status(200).json({ message: "User doesn't exist!!" })
@@ -40,15 +41,16 @@ const signin = async (req, res) => {
 
 const signup = async (req, res) => {
     const { email, password, firstName, lastName, user, phone } = req.body
+    const email2=email;
     try {
-        const oldUser = await UserModal.uss.findOne({ email })
+        const oldUser = await UserModal.uss.findOne({ email:email2 })
 
         if (oldUser)
             return res.status(200).json({ message: 'User already exists!!' })
         const hashedPassword = await bcrypt.hash(password, 12)
 
         const result = await UserModal.uss.create({
-            email,
+            email:email2,
             password: hashedPassword,
             name: `${firstName} ${lastName}`,
             user,
@@ -71,16 +73,17 @@ const signup = async (req, res) => {
 
 const gSignin = async (req, res) => {
     const { email, name, googleId } = req.body
+    const email2=email;
 
     try {
-        let result = await UserModal.uss.findOne({ email })
+        let result = await UserModal.uss.findOne({ email:email2 })
         if (!result) {
-            result = await UserModal.uss.create({ name, email, googleId })
+            result = await UserModal.uss.create({ name, email:email2, googleId })
         }
         else
         {
             await UserModal.uss.updateOne({email}, { $set: {googleId:googleId} } )
-            result = await UserModal.uss.findOne({ email })
+            result = await UserModal.uss.findOne({ email:email2 })
         }
         const token = jwt.sign(
             { email: result.email, id: result._id },
