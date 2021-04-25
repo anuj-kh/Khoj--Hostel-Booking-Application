@@ -29,5 +29,52 @@ router.get(
     }),
 )
 
+router.patch('/book/:id', async (req, res) => {
+    try {
+        const { st, en,to,localStorageId,flag } = req.body;
+        if(flag==true)
+        {
+            const user = await UserModal.uss2.updateOne(
+                { _id: req.params.id },
+                { $push: { 
+                    currentStudents: {
+                        startDate: st, endDate: en, bookingDate: to, student: localStorageId
+                    }
+                } },
+            )
+            const user2 = await UserModal.uss.updateOne(
+                { _id: localStorageId },
+                { $push: { 
+                    currentHostel: {
+                        startDate: st, endDate: en, bookingDate: to, hostel: req.params.id
+                    }
+                } },
+            )
+        }
+        else
+        {
+            const user = await UserModal.uss2.updateOne(
+                { _id: req.params.id },
+                { $push: { 
+                    futureStudents: {
+                        startDate: st, endDate: en, bookingDate: to, student: localStorageId
+                    }
+                } },
+            )
+            const user2 = await UserModal.uss.updateOne(
+                { _id: localStorageId },
+                { $push: { 
+                    futureHostels: {
+                        startDate: st, endDate: en, bookingDate: to, hostel: req.params.id
+                    }
+                } },
+            )
+        }
+        res.send("You are successfully registered to this hostel!!");
+    } catch (err) {
+        res.json({ message: err.message, data: req.body, id: req.params.id })
+    }
+})
+
 
 module.exports = router

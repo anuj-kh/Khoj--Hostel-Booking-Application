@@ -9,17 +9,17 @@ const useStyles = makeStyles({
 })
 
 const OverviewBarTile = (props) => {
-    const classes = useStyles()
-    return (
-        <Paper className={classes.customBorderRadius} elevation={15}>
-            <Grid align='center'>
-                <br />
-                <h3 style={{ fontSize: '30px' }}>{props.title}</h3>
-                <p style={{ marginTop: '10px', fontSize: '20px' }}>
-                    {props.value}
-                </p>
-            </Grid>
-        </Paper>
-    )
+    const classes=useStyles();
+        return (
+            <Paper className={classes.customBorderRadius} elevation={15}>
+                <Grid align="center">
+                    <br />
+                    <h3 style={{ fontSize: '30px' }}>{props.title}</h3>
+                    <p style={{ marginTop: '10px', fontSize: '20px' }}>
+                    { (props.value)=="undefined" ? "Not registered" : props.value }
+                    </p>
+                </Grid>
+            </Paper>
+        )
 }
 export default OverviewBarTile

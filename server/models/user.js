@@ -5,14 +5,32 @@ const userSchema = mongoose.Schema({
     email: { type: String, required: true },
     phone: { type: String, default: '' },
     password: { type: String },
-    address: { type: String },
+    address:{type:String, default: ''},
     user: { type: String, default: 'Student' },
     googleId: { type: String },
     id: { type: String },
-    currentHostel: { type: String, default: 'Not registered' },
-    tiffinService: { type: String, default: 'Not registered' },
-    credit: { type: String, default: '300' },
-    daysLeft: { type: String, default: '0' },
+    currentHostel: {
+        hostel: {type: mongoose.Schema.Types.ObjectId, ref:'hostels'},
+        startDate: {type:String},
+        endDate: {type:String},
+        bookingDate: {type:String},
+    },
+    oldHostels: {
+        hostel: {type: mongoose.Schema.Types.ObjectId, ref:'hostels'},
+        startDate: {type:String},
+        endDate: {type:String},
+        bookingDate: {type:String},
+    }
+    ,
+    futureHostels: {
+        hostel: {type: mongoose.Schema.Types.ObjectId, ref:'hostels'},
+        startDate: {type:String},
+        endDate: {type:String},
+        bookingDate: {type:String},
+    }
+    ,
+    credit: {type: String, default:'300'},
+    daysLeft: {type: String, default:'0'},
     reviews: [
         {
             hostel: {
@@ -58,6 +76,30 @@ const userSchema2 = mongoose.Schema({
     address: { type: String, required: true },
     owner: { type: String, required: true },
     image: { type: String, required: true },
+    currentStudents: [
+        {
+            student: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
+            startDate: {type:String},
+            endDate: {type:String},
+            bookingDate: {type:String},
+        }
+    ],
+    oldStudents: [
+        {
+            student: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
+            startDate: {type:String},
+            endDate: {type:String},
+            bookingDate: {type:String},
+        }
+    ],
+    futureStudents: [
+        {
+            student: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
+            startDate: {type:String},
+            endDate: {type:String},
+            bookingDate: {type:String},
+        }
+    ]
 })
 
 var uss = mongoose.model('User', userSchema)
