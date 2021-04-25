@@ -16,7 +16,12 @@ const ReviewCard = (props) => {
         <Paper
             className={classes.customBorderRadius}
             elevation={7}
-            style={{ margin: '20px', height: '110%', padding: '20px' }}>
+            style={{
+                margin: '20px',
+                height: '110%',
+                width: '500px',
+                padding: '20px',
+            }}>
             <Grid align='center' width='50%' style={{ margin: '0px' }}>
                 <h2>{props.title}</h2>
                 <br />

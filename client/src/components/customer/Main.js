@@ -19,7 +19,9 @@ const Main = () => {
             <br />
             <br />
             <h1 className={classes.cent}>Welcome to KHOJ</h1>
+            <br />
             <OverviewBar />
+            <br />
             <OverviewMain />
         </div>
     )

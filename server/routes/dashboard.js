@@ -28,6 +28,18 @@ router.get(
         }
     }),
 )
+router.get(
+    '/complaints/:id',
+    asyncHandler(async (req, res) => {
+        const user = await UserModal.uss.findById(req.params.id)
+        if (user) {
+            res.json(user.complaints)
+        } else {
+            res.status(404)
+            throw new Error('User not Found')
+        }
+    }),
+)
 
 router.patch('/reviews/:id', async (req, res) => {
     try {
@@ -40,12 +52,29 @@ router.patch('/reviews/:id', async (req, res) => {
         res.json({ message: err.message, data: req.body, id: req.params.id })
     }
 })
-
+router.patch('/complaints/:id', async (req, res) => {
+    try {
+        const user = await UserModal.uss.updateOne(
+            { _id: req.params.id },
+            { $push: { complaints: req.body } },
+        )
+        res.send(user)
+    } catch (err) {
+        res.json({ message: err.message, data: req.body, id: req.params.id })
+    }
+})
 router.patch('/editProfile/:id', async (req, res) => {
     try {
         const user = await UserModal.uss.updateOne(
             { _id: req.params.id },
-            { $set: { name: req.body.name, phone:req.body.phone,email:req.body.email,address:req.body.address } },
+            {
+                $set: {
+                    name: req.body.name,
+                    phone: req.body.phone,
+                    email: req.body.email,
+                    address: req.body.address,
+                },
+            },
         )
         res.send(user)
     } catch (err) {

@@ -7,7 +7,7 @@ class OverviewMain extends Component {
     render() {
         const style = {
             width: '100%',
-            height: '300px',
+            height: '350px',
             borderRadius: '5px',
         }
 
