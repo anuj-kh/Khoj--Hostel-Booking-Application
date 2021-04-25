@@ -6,8 +6,8 @@ import './OverviewMain.css'
 class OverviewMain extends Component {
     render() {
         const style = {
-            width: '1850px',
-            height: '300px',
+            width: '100%',
+            height: '350px',
             borderRadius: '5px',
         }
 
@@ -34,11 +34,23 @@ class OverviewMain extends Component {
                         name={'Current location'}
                     />
 
-                    <InfoWindow onClose={this.onInfoWindowClose}></InfoWindow>
+                    {/* <InfoWindow onClose={this.onInfoWindowClose}>
+                        <div></div>
+                    </InfoWindow> */}
                 </Map>
-
-                <Drops className='drop'  title='Hostels' />
-                <Drops className='drop2' title='Tiffins' />
+                <div
+                    style={{
+                        position: 'relative',
+                        display: 'flex',
+                        margin: '10px',
+                        justifyContent: 'space-around',
+                    }}>
+                    <Drops names={['Singh', 'Negi', 'Dubey']} title='Hostels' />
+                    <Drops
+                        names={['Ahuja', 'Arora', 'Gulab']}
+                        title='Tiffins'
+                    />
+                </div>
             </div>
         )
     }

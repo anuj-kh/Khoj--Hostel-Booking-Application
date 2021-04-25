@@ -31,66 +31,125 @@ const useStyles = makeStyles((theme) => ({
 
 const Reviews = () => {
     const [reviews, setReviews] = useState([])
-    const localStorageId = JSON.parse(localStorage.getItem('profile')).result._id
+    const [complaints, setComplaints] = useState([])
+
+    const localStorageId = JSON.parse(localStorage.getItem('profile')).result
+        ._id
+
+    const fetchReviews = async () => {
+        const res = await axios.get(`/dashboard/reviews/${localStorageId}`)
+
+        setReviews(res.data)
+    }
+    const fetchComplaints = async () => {
+        const res = await axios.get(`/dashboard/complaints/${localStorageId}`)
+
+        setComplaints(res.data)
+    }
     useEffect(() => {
-        const fetchReviews = async () => {
-            const res = await axios.get(`/dashboard/reviews/${localStorageId}`)
-
-            setReviews(res.data)
-        }
-
         fetchReviews()
+        fetchComplaints()
     })
     const classes = useStyles()
 
     const [value, setValue] = React.useState({
         hostel: '',
         comment: '',
+        date: '',
     })
 
     const handleChange = (event) => {
         const newValue = { ...value }
         newValue[event.target.id] = event.target.value
+        newValue.date = new Date()
         setValue(newValue)
         console.log(value)
     }
     const handleClick = async (event) => {
         event.preventDefault()
         try {
-            const response = await axios.patch(`/dashboard/reviews/${localStorageId}`, value);
-            console.log(' Returned data:', response);
-           
+            const response = await axios.patch(
+                `/dashboard/reviews/${localStorageId}`,
+                value,
+            )
+            console.log(' Returned data:', response)
+
             setValue({
                 hostel: '',
                 comment: '',
-                
+                date: '',
             })
-            {handleChange()}
-          } catch (e) {
-            console.log(` Axios request failed: ${e}`);
-          }
-        
+            {
+                handleChange()
+            }
+        } catch (e) {
+            console.log(` Axios request failed: ${e}`)
+        }
     }
+    const handleClick2 = async (event) => {
+        event.preventDefault()
+        try {
+            const response = await axios.patch(
+                `/dashboard/complaints/${localStorageId}`,
+                value,
+            )
+            console.log(' Returned data:', response)
+
+            setValue({
+                hostel: '',
+                comment: '',
+                date: '',
+            })
+            {
+                handleChange()
+            }
+        } catch (e) {
+            console.log(` Axios request failed: ${e}`)
+        }
+    }
+    var i = 0
 
     return (
         <>
             <Navbar />
             <br />
             <br />
-            <h1 className={classes.cent}>Your Reviews</h1>
-            <br />
-            <br />
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                }}>
+                <div>
+                    <h1 className={classes.cent}>Your Reviews</h1>
+                    <br />
+                    <br />
 
-            {reviews.map((rev) => (
-                <div className={classes.root}>
-                    <ReviewCard
-                        title={rev.hostel}
-                        value={rev.comment}
-                        date={Date(JSON.stringify(rev.date))}
-                    />
+                    {reviews.map((rev) => (
+                        <div className={classes.root} key={i++}>
+                            <ReviewCard
+                                title={rev.hostel}
+                                value={rev.comment}
+                                date={rev.date.toString()}
+                            />
+                        </div>
+                    ))}
                 </div>
-            ))}
+                <div>
+                    <h1 className={classes.cent}>Your Complaints</h1>
+                    <br />
+                    <br />
 
+                    {complaints.map((complaint) => (
+                        <div className={classes.root} key={i++}>
+                            <ReviewCard
+                                title={complaint.hostel}
+                                value={complaint.comment}
+                                date={complaint.date.toString()}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </div>
             <br />
             <form className={classes.root} noValidate autoComplete='off'>
                 <div>
@@ -100,16 +159,15 @@ const Reviews = () => {
                         placeholder='Hostel Name'
                         value={value.hostel}
                         multiline
-                        
                         variant='outlined'
                         onChange={handleChange}
                     />
 
                     <TextField
                         id='comment'
-                        label='Review'
+                        label='Review/Complaint'
                         style={{ marginTop: 10 }}
-                        placeholder='Please write your review'
+                        placeholder='Please write your review/complaint'
                         value={value.comment}
                         fullWidth
                         multiline
@@ -120,13 +178,26 @@ const Reviews = () => {
                         variant='outlined'
                         onChange={handleChange}
                     />
-                    <Button
-                        type='submit'
-                        onClick={handleClick}
-                        style={{ marginTop: 10 }}
-                        variant='contained'>
-                        Submit
-                    </Button>
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'space-around',
+                        }}>
+                        <Button
+                            type='submit'
+                            onClick={handleClick}
+                            style={{ marginTop: 10 }}
+                            variant='contained'>
+                            Submit Review
+                        </Button>
+                        <Button
+                            type='submit'
+                            onClick={handleClick2}
+                            style={{ marginTop: 10 }}
+                            variant='contained'>
+                            Submit Complaint
+                        </Button>
+                    </div>
                 </div>
             </form>
         </>
