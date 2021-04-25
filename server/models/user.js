@@ -51,6 +51,7 @@ const userSchema = mongoose.Schema({
             },
         },
     ],
+    dues: { type: String, default: 0 },
 })
 
 const userSchema2 = mongoose.Schema({
