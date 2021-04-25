@@ -6,12 +6,7 @@ const UserModal = require('../models/user.js')
 router.get(
     '/account/:id',
     asyncHandler(async (req, res) => {
-        // const u=await UserModal.uss.findById(req.params.id);
-        // if(u.currentHostel && u.oldHostels )
         const user = await UserModal.uss.findById(req.params.id).populate("currentHostel.hostel").populate("futureHostels.hostel").populate("oldHostels.hostel");
-        // const user2 = await UserModal.uss.findById(req.params.id).populate("oldHostels.hostel");
-        // const user3 = await UserModal.uss.findById(req.params.id).populate("futureHostels.hostel");
-        // console.log(user.futureHostels.hostel);
         if (user) {
             res.json(user)
         } else {

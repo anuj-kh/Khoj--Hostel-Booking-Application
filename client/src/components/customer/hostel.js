@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from './navbar'
 import { makeStyles, Grid, Button } from '@material-ui/core' 
-import "react-datepicker/dist/react-datepicker.css";
-import { Link, useParams } from 'react-router-dom';
-// import NewBookingCard from './newBookingCard';
+
+import { useParams } from 'react-router-dom';
 import axios from 'axios'
 import DatePicker from "react-datepicker";  
 import "react-datepicker/dist/react-datepicker.css";

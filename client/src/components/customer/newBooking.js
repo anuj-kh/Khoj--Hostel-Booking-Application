@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from './navbar'
-import { makeStyles, Grid, Paper } from '@material-ui/core'
+import { makeStyles, Grid } from '@material-ui/core'
 import DatePicker from "react-datepicker";  
 import "react-datepicker/dist/react-datepicker.css";
-import { Link } from 'react-router-dom';
 import NewBookingCard from './newBookingCard';
 import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-    // display: 'flex',
     alignItems:'center',
     justifyContent: 'space-between',
       "& > *": {
@@ -37,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
 const NewBooking = () => {
     const classes = useStyles();
     const [hostels, setHostels] = useState([])
-    // const [hostel, setHostel] = useState([])
 
     useEffect(() => {
         const fetchHostel = async () => {

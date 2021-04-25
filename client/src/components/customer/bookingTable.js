@@ -1,7 +1,6 @@
-import React,{useState,useEffect} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
-import axios from 'axios'
 
 const useStyles = makeStyles({
   table: {

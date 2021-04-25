@@ -34,7 +34,7 @@ router.patch('/book/:id', async (req, res) => {
         const { st, en,to,localStorageId,flag } = req.body;
         if(flag==true)
         {
-            const user = await UserModal.uss2.updateOne(
+            await UserModal.uss2.updateOne(
                 { _id: req.params.id },
                 { $push: { 
                     currentStudents: {
@@ -42,7 +42,7 @@ router.patch('/book/:id', async (req, res) => {
                     }
                 } },
             )
-            const user2 = await UserModal.uss.updateOne(
+            await UserModal.uss.updateOne(
                 { _id: localStorageId },
                 { $push: { 
                     currentHostel: {
@@ -53,7 +53,7 @@ router.patch('/book/:id', async (req, res) => {
         }
         else
         {
-            const user = await UserModal.uss2.updateOne(
+            await UserModal.uss2.updateOne(
                 { _id: req.params.id },
                 { $push: { 
                     futureStudents: {
@@ -61,7 +61,7 @@ router.patch('/book/:id', async (req, res) => {
                     }
                 } },
             )
-            const user2 = await UserModal.uss.updateOne(
+            await UserModal.uss.updateOne(
                 { _id: localStorageId },
                 { $push: { 
                     futureHostels: {
