@@ -19,12 +19,14 @@ const OverviewBar = () => {
     const classes = useStyles();
     const localStoragee = JSON.parse(localStorage.getItem('profile')).result; 
     const curHostel=(localStoragee.currentHostel)?localStoragee.currentHostel[0].hostel.name:"Not registered";
+    const dues=(localStoragee.currentHostel)?localStoragee.currentHostel[0].dues:0;
 
     return (
         <div className={classes.root}>  
-            <OverviewBarTile title='Credit' value={`${localStoragee.credit}`} />
+            <OverviewBarTile title='Credit' value={`Rs. ${localStoragee.credit}`} />
             <OverviewBarTile title='Current Hostel' value={curHostel} /> 
-            <OverviewBarTile title='Days Left' value={`30`} />
+            <OverviewBarTile title='Days Left' value={`${localStoragee.daysLeft}`} />
+            <OverviewBarTile title='Dues' value={`Rs. ${dues}`} />
         </div>  
     )
 }

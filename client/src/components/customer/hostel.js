@@ -100,6 +100,10 @@ const Hostel = (props) => {
             let flag=false;
             if( todayDate.getDate()==startDate.getDate() && todayDate.getMonth()==startDate.getMonth() && todayDate.getFullYear()==startDate.getFullYear() )
                 flag=true;
+            let days= ( endDate.getTime()-startDate.getTime() ) / (1000*3600*24) ;
+            let dues= (days/30)*hostel.price;
+            dues=Math.round(dues*100)/100;
+            days=Math.round(days);
             let st=startDate.toDateString();
             let en=endDate.toDateString();
             let to=todayDate.toDateString();
@@ -107,7 +111,7 @@ const Hostel = (props) => {
                 try
                 {
                     const res = await axios.patch(
-                        `/hostel/book/${id}`,{st,en,to,localStorageId,flag}
+                        `/hostel/book/${id}`,{st,en,to,localStorageId,flag,dues,days}
                     );
                     const data=res.data;
                     if (Object.keys(data).length == 1) 

@@ -30,6 +30,8 @@ export default function BookingTable(props) {
             <TableCell align="right" className={classes.heading}>Subscription Start Date</TableCell>
             <TableCell align="right" className={classes.heading}>Subscription End Date</TableCell>
             <TableCell align="right" className={classes.heading}>Price(Monthly)</TableCell>
+            <TableCell align="right" className={classes.heading}>Total Price</TableCell>
+            <TableCell align="right" className={classes.heading}>Dues left</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -42,6 +44,8 @@ export default function BookingTable(props) {
               <TableCell align="right">{row.startDate}</TableCell>
               <TableCell align="right">{row.endDate}</TableCell>
               <TableCell align="right">Rs. {row.hostel.price}</TableCell>
+              <TableCell align="right">Rs. {row.totalPayment}</TableCell>
+              <TableCell align="right">Rs. {row.dues}</TableCell>
             </TableRow>
           ))}
         </TableBody>

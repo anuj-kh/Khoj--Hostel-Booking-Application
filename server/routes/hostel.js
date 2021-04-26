@@ -34,24 +34,28 @@ router.get(
 
 router.patch('/book/:id', async (req, res) => {
     try {
-        const { st, en,to,localStorageId,flag } = req.body;
+        const { st, en,to,localStorageId,flag,dues,days } = req.body;
         if(flag==true)
         {
             await UserModal.uss2.updateOne(
                 { _id: req.params.id },
                 { $push: { 
                     currentStudents: {
-                        startDate: st, endDate: en, bookingDate: to, student: localStorageId
+                        startDate: st, endDate: en, bookingDate: to, student: localStorageId, dues,totalPayment:dues,
+                        }
                     }
-                } },
+             },
             )
-            await UserModal.uss.updateOne(
+            await UserModal.uss.findOneAndUpdate(
                 { _id: localStorageId },
                 { $push: { 
                     currentHostel: {
-                        startDate: st, endDate: en, bookingDate: to, hostel: req.params.id
+                        startDate: st, endDate: en, bookingDate: to, hostel: req.params.id, dues,totalPayment:dues,
+                    }},
+                    $set:{
+                        daysLeft:days
                     }
-                } },
+                 },
             )
         }
         else
@@ -60,7 +64,7 @@ router.patch('/book/:id', async (req, res) => {
                 { _id: req.params.id },
                 { $push: { 
                     futureStudents: {
-                        startDate: st, endDate: en, bookingDate: to, student: localStorageId
+                        startDate: st, endDate: en, bookingDate: to, student: localStorageId, dues,totalPayment:dues,
                     }
                 } },
             )
@@ -68,7 +72,7 @@ router.patch('/book/:id', async (req, res) => {
                 { _id: localStorageId },
                 { $push: { 
                     futureHostels: {
-                        startDate: st, endDate: en, bookingDate: to, hostel: req.params.id
+                        startDate: st, endDate: en, bookingDate: to, hostel: req.params.id, dues,totalPayment:dues,
                     }
                 } },
             )

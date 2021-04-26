@@ -91,8 +91,6 @@ export default function EditProfile() {
             <br />
             <br />
             <br />
-            <br />
-            <br />
             <form className={classes.root} noValidate autoComplete='off'>
                 <div
                     className={classes.cent}

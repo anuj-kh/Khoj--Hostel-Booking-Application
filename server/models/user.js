@@ -1,4 +1,7 @@
 const mongoose = require('mongoose')
+require('mongoose-double')(mongoose);
+
+var SchemaTypes = mongoose.Schema.Types;
 
 const userSchema = mongoose.Schema({
     name: { type: String, required: true },
@@ -14,12 +17,16 @@ const userSchema = mongoose.Schema({
         startDate: {type:String},
         endDate: {type:String},
         bookingDate: {type:String},
+        dues: { type: SchemaTypes.Double },
+        totalPayment: { type: SchemaTypes.Double },
     },
     oldHostels: {
         hostel: {type: mongoose.Schema.Types.ObjectId, ref:'hostels'},
         startDate: {type:String},
         endDate: {type:String},
         bookingDate: {type:String},
+        dues: { type: SchemaTypes.Double },
+        totalPayment: { type: SchemaTypes.Double },
     }
     ,
     futureHostels: {
@@ -27,10 +34,12 @@ const userSchema = mongoose.Schema({
         startDate: {type:String},
         endDate: {type:String},
         bookingDate: {type:String},
+        dues: { type: SchemaTypes.Double },
+        totalPayment: { type: SchemaTypes.Double },
     }
     ,
-    credit: {type: String, default:'300'},
-    daysLeft: {type: String, default:'0'},
+    credit: {type: SchemaTypes.Double, default: 300},
+    daysLeft: {type: SchemaTypes.Double, default: 0},
     reviews: [
         {
             hostel: {
@@ -69,7 +78,6 @@ const userSchema = mongoose.Schema({
             },
         },
     ],
-    dues: { type: String, default: 0 },
 })
 
 const userSchema2 = mongoose.Schema({
@@ -83,6 +91,8 @@ const userSchema2 = mongoose.Schema({
             startDate: {type:String},
             endDate: {type:String},
             bookingDate: {type:String},
+            dues: { type: SchemaTypes.Double, default: 0 },
+            totalPayment: { type: SchemaTypes.Double, default: 0 },
         }
     ],
     oldStudents: [
@@ -91,6 +101,8 @@ const userSchema2 = mongoose.Schema({
             startDate: {type:String},
             endDate: {type:String},
             bookingDate: {type:String},
+            dues: { type: SchemaTypes.Double },
+            totalPayment: { type: SchemaTypes.Double },
         }
     ],
     futureStudents: [
@@ -99,6 +111,8 @@ const userSchema2 = mongoose.Schema({
             startDate: {type:String},
             endDate: {type:String},
             bookingDate: {type:String},
+            dues: { type: SchemaTypes.Double },
+            totalPayment: { type: SchemaTypes.Double },
         }
     ]
 })
