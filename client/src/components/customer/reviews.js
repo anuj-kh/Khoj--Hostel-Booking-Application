@@ -147,6 +147,8 @@ const Reviews = () => {
                                 title={rev.hostel}
                                 value={rev.comment}
                                 date={rev.date.toString().substring(0,10)}
+                                width='500px'
+                                height='100px'   
                             />
                         </div>
                     ))}
@@ -162,6 +164,8 @@ const Reviews = () => {
                                 title={complaint.hostel}
                                 value={complaint.comment}
                                 date={complaint.date.toString()}
+                                width='500px'
+                                height='100px'
                             />
                         </div>
                     ))}

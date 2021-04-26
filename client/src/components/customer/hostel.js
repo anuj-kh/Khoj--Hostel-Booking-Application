@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios'
 import DatePicker from "react-datepicker";  
 import "react-datepicker/dist/react-datepicker.css";
+import ReviewCard from './reviewCard'
 
 const useStyles = makeStyles((theme) => ({
     cent: {
@@ -42,11 +43,14 @@ const useStyles = makeStyles((theme) => ({
     errorDiv: {
         margin: theme.spacing(1),
         fontWeight: 'bold'
+    },
+    temp:{
+        
     }
 }));
 
 let cl='red';
-
+let i=0;
 const Hostel = (props) => {
     const { id } = useParams()
     const classes = useStyles();
@@ -153,7 +157,17 @@ const Hostel = (props) => {
                     <p>Rs. {hostel.price}</p>
                     <br/>
                     <h4>Reviews:</h4>
-                    {/* <p>{hostel.address}</p> */}
+                    <p>{hostel.reviews!=null && hostel.reviews.map((rev) => (
+                        <div className={classes.temp} key={i++}>
+                            <ReviewCard
+                                value={rev.comment}
+                                date={rev.date.toString().substring(0,10)}
+                                width='300px'
+                                height='50px'
+                            />
+                        </div>
+                    ))}
+                    </p>
                 </Grid>
                 <Grid item xs={4} className={classes.paper2}>
                     <div>

@@ -18,8 +18,8 @@ const ReviewCard = (props) => {
             elevation={7}
             style={{
                 margin: '20px',
-                height: '110%',
-                width: '500px',
+                height: `${props.height}`,
+                width: `${props.width}`,
                 padding: '20px',
             }}>
             <Grid align='center' width='50%' style={{ margin: '0px' }}>
