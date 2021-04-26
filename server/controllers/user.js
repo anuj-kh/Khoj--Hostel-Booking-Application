@@ -9,7 +9,7 @@ const signin = async (req, res) => {
     const { email, password } = req.body
 
     try {
-        const oldUser = await UserModal.uss.findOne({ email })
+        const oldUser = await UserModal.uss.findOne({ email }).populate("currentHostel.hostel").populate("futureHostels.hostel").populate("oldHostels.hostel");
 
         if (!oldUser)
             return res.status(200).json({ message: "User doesn't exist!!" })
@@ -75,12 +75,12 @@ const gSignin = async (req, res) => {
     try {
         let result = await UserModal.uss.findOne({ email })
         if (!result) {
-            result = await UserModal.uss.create({ name, email, googleId })
+            result = await UserModal.uss.create({ name, email, googleId });
         }
         else
         {
             await UserModal.uss.updateOne({email}, { $set: {googleId:googleId} } )
-            result = await UserModal.uss.findOne({ email })
+            result = await UserModal.uss.findOne({ email }).populate("currentHostel.hostel").populate("futureHostels.hostel").populate("oldHostels.hostel")
         }
         const token = jwt.sign(
             { email: result.email, id: result._id },

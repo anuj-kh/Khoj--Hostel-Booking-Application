@@ -2,6 +2,9 @@ const express = require('express')
 const router = express.Router()
 const asyncHandler = require('express-async-handler')
 const UserModal = require('../models/user.js')
+var jwt = require('jsonwebtoken')
+
+const secret = 'test'
 
 router.get(
     '/hostels',
@@ -70,9 +73,15 @@ router.patch('/book/:id', async (req, res) => {
                 } },
             )
         }
-        res.send("You are successfully registered to this hostel!!");
+        let result = await UserModal.uss.findById(localStorageId).populate("currentHostel.hostel").populate("futureHostels.hostel").populate("oldHostels.hostel");
+        const token = jwt.sign(
+            { email: result.email, id: result._id },
+            secret,
+            { expiresIn: '1h' },
+        );
+        res.status(200).json({ result: result, token })
     } catch (err) {
-        res.json({ message: err.message, data: req.body, id: req.params.id })
+        res.status(200).json({ message: 'Something went wrong' })
     }
 })
 

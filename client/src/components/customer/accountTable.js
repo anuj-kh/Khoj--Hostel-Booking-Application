@@ -29,26 +29,14 @@ function createData(name, value) {
 }
 
 export default function AccountTable() {
-    const [user, setUser] = useState({})
-    const localStorageId = JSON.parse(localStorage.getItem('profile')).result._id
-    useEffect(() => {
-        const fetchUser = async () => {
-            const res = await axios.get(
-                `/dashboard/account/${localStorageId}`,
-            )
-
-            setUser(res.data)
-        }
-
-        fetchUser()
-    })
+    const localStoragee = JSON.parse(localStorage.getItem('profile')).result
 
     const classes = useStyles()
     const rows = [
-        createData('Name ', `${user.name}`),
-        createData('Phone No. ', `${user.phone}`),
-        createData('Email ', `${user.email}`),
-        createData('Address ', `${user.address}`),
+        createData('Name ', `${localStoragee.name}`),
+        createData('Phone No. ', `${localStoragee.phone}`),
+        createData('Email ', `${localStoragee.email}`),
+        createData('Address ', `${localStoragee.address}`),
     ]
 
     return (

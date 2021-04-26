@@ -32,7 +32,8 @@ const navLinks = [
     { title: 'Overview', path: '/dashboard' },
     { title: 'My bookings', path: '/dashboard/bookings' },
     { title: 'Reviews', path: '/dashboard/reviews' },
-    { title: 'My Account', path: '/dashboard/account' }
+    { title: 'My Account', path: '/dashboard/account' },
+    { title: 'New Booking', path: '/dashboard/newBooking' }
   ]
 
 const Navbar = () => {

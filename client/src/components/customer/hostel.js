@@ -41,15 +41,11 @@ const useStyles = makeStyles((theme) => ({
     },
     errorDiv: {
         margin: theme.spacing(1),
-        color: 'red',
         fontWeight: 'bold'
-    },
-    successDiv: {
-        margin: theme.spacing(1),
-        color: 'green',
-        fontWeight: 'bold'
-    },
+    }
 }));
+
+let cl='red';
 
 const Hostel = (props) => {
     const { id } = useParams()
@@ -59,7 +55,6 @@ const Hostel = (props) => {
     const [endDate, setEndDate] = useState();
     const todayDate=new Date();
     const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
     const localStorageId = JSON.parse(localStorage.getItem('profile')).result._id;
     useEffect(() => {
         const fetchHostel = async () => {
@@ -75,11 +70,20 @@ const Hostel = (props) => {
 
     const handleClick = (e) => {
         if(startDate==undefined && endDate==undefined)
+        {
+            cl='red';
             setError("Start and end dates are not given!!")
+        }
         else if(startDate==undefined)
+        {
+            cl='red';
             setError("Start date is not given!!")
+        }
         else if(endDate==undefined)
+        {
+            cl='red';
             setError("End date is not given!!")
+        }
         else if (
             startDate!=undefined && 
             endDate!=undefined &&
@@ -87,7 +91,10 @@ const Hostel = (props) => {
             startDate.getMonth()>=endDate.getMonth() &&
             startDate.getFullYear()>=endDate.getFullYear()
         )
+        {
+            cl='red';
             setError("End date should be after the start date!!")
+        }
         else
         {
             let flag=false;
@@ -96,13 +103,25 @@ const Hostel = (props) => {
             let st=startDate.toDateString();
             let en=endDate.toDateString();
             let to=todayDate.toDateString();
-            setError("");
             (async () => {
-                const res = await axios.patch(
-                    `/hostel/book/${id}`,{st,en,to,localStorageId,flag}
-                );
-                console.log(res.data)
-                setSuccess(res.data);
+                try
+                {
+                    const res = await axios.patch(
+                        `/hostel/book/${id}`,{st,en,to,localStorageId,flag}
+                    );
+                    const data=res.data;
+                    if (Object.keys(data).length == 1) 
+                        throw data.message;
+                        localStorage.setItem('profile', JSON.stringify({ ...data }));
+                    cl='green';
+                    setError("You are successfully registered to this hostel!!");
+                } 
+                catch (e) 
+                {
+                    console.log(` Axios request failed: ${e}`);
+                    cl='red';
+                    setError(`${e}`);
+                }
             })();
         }
     }
@@ -147,8 +166,7 @@ const Hostel = (props) => {
                         <Button variant='contained' className={classes.cent2} onClick={handleClick}>
                             Book
                         </Button>
-                        <div className={classes.errorDiv}>{error}</div>
-                        <div className={classes.successDiv}>{success}</div>
+                        <div className={classes.errorDiv} style={{color:`${cl}`}}>{error}</div>
                     </div>
                 </Grid>
             </Grid>

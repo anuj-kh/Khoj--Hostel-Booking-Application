@@ -55,7 +55,6 @@ const Auth = () => {
     setSuccess("");
     setError("");
     e.preventDefault();
-    console.log(form);
     if (isSignup) 
     {
         if(form.phone.length!=10)
@@ -66,7 +65,6 @@ const Auth = () => {
             {
                 (async () => {
                 const a = await dispatch(signup(form, history));
-                console.log(a);
                 if(a!=null)
                     setError(a);
                 else  
@@ -84,7 +82,6 @@ const Auth = () => {
     {
       (async () => {
         const a = await dispatch(signin(form, history));
-        console.log(a);
         if(a!=null)
           setError(a);
       })();
@@ -94,7 +91,6 @@ const Auth = () => {
         const result = res?.profileObj;
         (async () => {
             const a = await dispatch(gSignin(result, history))
-            console.log(a)
             if (a != null) setError(a)
         })()
     }
@@ -103,7 +99,6 @@ const Auth = () => {
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value })
-        console.log(form)
     }
 
     return (
@@ -214,7 +209,7 @@ const Auth = () => {
                         render={(renderProps) => (
                             <Button
                                 className={classes.googleButton}
-                                color='primary'
+                                // color='primary'
                                 fullWidth
                                 onClick={renderProps.onClick}
                                 disabled={renderProps.disabled}

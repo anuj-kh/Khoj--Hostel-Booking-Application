@@ -33,51 +33,53 @@ const useStyles = makeStyles((theme) => ({
         width: '50ch',
         height: '6ch',
     },
+    err:{
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'center',
+        fontWeight:'bold'
+    },
 }))
+
+let cl='green';
 
 export default function EditProfile() {
     const classes = useStyles()
-    const [user, setUser] = useState({})
-    const localStorageId = JSON.parse(localStorage.getItem('profile')).result
-        ._id
+    const [error,setError]=useState("")
+    const localStoragee = JSON.parse(localStorage.getItem('profile')).result
+
     const [value, setValue] = React.useState({
-        name: ``,
-        phone: ``,
-        email: ``,
-        address: ``,
+        name: `${localStoragee.name}`,
+        phone: `${localStoragee.phone}`,
+        email: `${localStoragee.email}`,
+        address: `${localStoragee.address}`,
     })
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            const res = await axios.get(`/dashboard/account/${localStorageId}`)
-
-            setUser(res.data)
-        }
-
-        fetchUser()
-        // setValue({name:`${user.name}`,phone:`${user.phone}`,email:`${user.email}`,address:`${user.address}`})
-    })
+    const [user, setUser]=useState(`${localStoragee.name}`);
 
     const handleChange = (event) => {
         const newValue = { ...value }
         newValue[event.target.id] = event.target.value
         setValue(newValue)
-        console.log(value)
     }
     const handleClick = async (event) => {
         event.preventDefault()
         try {
             const response = await axios.patch(
-                `/dashboard/editProfile/${localStorageId}`,
+                `/dashboard/editProfile/${localStoragee._id}`,
                 value,
-            )
-            console.log(' Returned data:', response)
-
-            {
-                handleChange()
-            }
+            );
+            const data=response.data;
+            if (Object.keys(data).length == 1) 
+                throw data.message;
+            cl='green';
+            setError("Details succesfully updated!!")
+            setUser(data.result.name)
+            localStorage.setItem('profile', JSON.stringify({ ...data }));
         } catch (e) {
-            console.log(` Axios request failed: ${e}`)
+            console.log(` Axios request failed: ${e}`);
+            cl='red';
+            setError(`${e}`);
         }
     }
 
@@ -101,12 +103,12 @@ export default function EditProfile() {
                         fontSize: '20px',
                     }}>
                     <Avatar
-                        alt={user.name}
+                        alt={user}
                         style={{ height: 140, width: 128 }}
                         src='/user.png'
                     />
                     <div>
-                        <h2>{user.name}</h2>
+                        <h2>{user}</h2>
                     </div>
                 </div>
                 <br />
@@ -128,9 +130,10 @@ export default function EditProfile() {
                         variant='outlined'
                     />
                     <TextField
+                        name='email'
                         id='email'
                         label='Email'
-                        // defaultValue={`${user.email}`}
+                        type='email'
                         value={value.email}
                         onChange={handleChange}
                         variant='outlined'
@@ -138,7 +141,7 @@ export default function EditProfile() {
                     <TextField
                         id='phone'
                         label='Phone No.'
-                        // defaultValue={`${user.phone}`}
+                        type='number'
                         value={value.phone}
                         onChange={handleChange}
                         variant='outlined'
@@ -147,7 +150,6 @@ export default function EditProfile() {
                         id='address'
                         label='Address'
                         fullWidth
-                        // defaultValue={`${user.address}`}
                         value={value.address}
                         onChange={handleChange}
                         style={{ width: '55ch' }}
@@ -163,13 +165,14 @@ export default function EditProfile() {
                     <Button
                         type='submit'
                         onClick={handleClick}
-                        // className={classes.cent}
                         style={{ margin: 0 }}
                         variant='contained'>
                         Submit
                     </Button>
                 </div>
             </form>
+            <br/>
+            <div className={classes.err} style={{color:`${cl}`}}>{error}</div>
         </>
     )
 }

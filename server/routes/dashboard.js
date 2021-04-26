@@ -2,6 +2,9 @@ const express = require('express')
 const router = express.Router()
 const asyncHandler = require('express-async-handler')
 const UserModal = require('../models/user.js')
+var jwt = require('jsonwebtoken')
+
+const secret = 'test'
 
 router.get(
     '/account/:id',
@@ -47,20 +50,35 @@ router.patch('/reviews/:id', async (req, res) => {
             { _id: req.params.id },
             { $push: { reviews: req.body } },
         )
-        res.send(user)
+        let result = await UserModal.uss.findById(req.params.id).populate("currentHostel.hostel").populate("futureHostels.hostel").populate("oldHostels.hostel");
+        const token = jwt.sign(
+            { email: result.email, id: result._id },
+            secret,
+            { expiresIn: '1h' },
+        );
+        res.status(200).json({ result: result, token });
     } catch (err) {
-        res.json({ message: err.message, data: req.body, id: req.params.id })
+        res.status(200).json({ message: 'Something went wrong' })
     }
 })
 router.patch('/complaints/:id', async (req, res) => {
+    console.log("here0")
     try {
         const user = await UserModal.uss.updateOne(
             { _id: req.params.id },
             { $push: { complaints: req.body } },
         )
-        res.send(user)
+        console.log("here1")
+        let result = await UserModal.uss.findById(req.params.id).populate("currentHostel.hostel").populate("futureHostels.hostel").populate("oldHostels.hostel");
+        const token = jwt.sign(
+            { email: result.email, id: result._id },
+            secret,
+            { expiresIn: '1h' },
+        );
+        console.log("here2")
+        res.status(200).json({ result: result, token });
     } catch (err) {
-        res.json({ message: err.message, data: req.body, id: req.params.id })
+        res.status(200).json({ message: 'Something went wrong' })
     }
 })
 router.patch('/editProfile/:id', async (req, res) => {
@@ -75,10 +93,16 @@ router.patch('/editProfile/:id', async (req, res) => {
                     address: req.body.address,
                 },
             },
-        )
-        res.send(user)
+        );
+        let result = await UserModal.uss.findById(req.params.id).populate("currentHostel.hostel").populate("futureHostels.hostel").populate("oldHostels.hostel");
+        const token = jwt.sign(
+            { email: result.email, id: result._id },
+            secret,
+            { expiresIn: '1h' },
+        );
+        res.status(200).json({ result: result, token })
     } catch (err) {
-        res.json({ message: err.message, data: req.body, id: req.params.id })
+        res.status(200).json({ message: 'Something went wrong' })
     }
 })
 

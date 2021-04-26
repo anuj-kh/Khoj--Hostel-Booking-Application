@@ -27,30 +27,24 @@ const useStyles = makeStyles((theme) => ({
             width: '25ch',
         },
     },
+    errorDiv: {
+        display: 'flex',
+        justifyContent: 'center',
+        margin: theme.spacing(1),
+        fontWeight: 'bold'
+    }
 }))
 
+let cl='red';
+
 const Reviews = () => {
-    const [reviews, setReviews] = useState([])
-    const [complaints, setComplaints] = useState([])
-
-    const localStorageId = JSON.parse(localStorage.getItem('profile')).result
-        ._id
-
-    const fetchReviews = async () => {
-        const res = await axios.get(`/dashboard/reviews/${localStorageId}`)
-
-        setReviews(res.data)
-    }
-    const fetchComplaints = async () => {
-        const res = await axios.get(`/dashboard/complaints/${localStorageId}`)
-
-        setComplaints(res.data)
-    }
-    useEffect(() => {
-        fetchReviews()
-        fetchComplaints()
-    })
     const classes = useStyles()
+    const localStoragee = JSON.parse(localStorage.getItem('profile')).result;
+
+    const [error, setError] = useState("");
+
+    let reviews=localStoragee.reviews
+    let complaints=localStoragee.complaints
 
     const [value, setValue] = React.useState({
         hostel: '',
@@ -69,42 +63,53 @@ const Reviews = () => {
         event.preventDefault()
         try {
             const response = await axios.patch(
-                `/dashboard/reviews/${localStorageId}`,
+                `/dashboard/reviews/${localStoragee._id}`,
                 value,
             )
-            console.log(' Returned data:', response)
-
+            const data=response.data;
+            if (Object.keys(data).length == 1) 
+                throw data.message;
+            localStorage.setItem('profile', JSON.stringify({ ...data }));
+            console.log("here");
+            cl='green';
+            setError("Review registered successfully!!");
+            console.log("here2");
+            
             setValue({
                 hostel: '',
                 comment: '',
                 date: '',
-            })
-            {
-                handleChange()
-            }
+            });
+            console.log("here3");
         } catch (e) {
             console.log(` Axios request failed: ${e}`)
+            cl='red';
+            setError(`${e}`);
         }
     }
     const handleClick2 = async (event) => {
         event.preventDefault()
         try {
             const response = await axios.patch(
-                `/dashboard/complaints/${localStorageId}`,
+                `/dashboard/complaints/${localStoragee._id}`,
                 value,
             )
-            console.log(' Returned data:', response)
+            const data=response.data;
+            if (Object.keys(data).length == 1) 
+                throw data.message;
+            localStorage.setItem('profile', JSON.stringify({ ...data }));
+            cl='green';
+            setError("Complaint registered successfully!!");
 
             setValue({
                 hostel: '',
                 comment: '',
                 date: '',
-            })
-            {
-                handleChange()
-            }
+            });
         } catch (e) {
             console.log(` Axios request failed: ${e}`)
+            cl='red';
+            setError(`${e}`);
         }
     }
     var i = 0
@@ -124,12 +129,12 @@ const Reviews = () => {
                     <br />
                     <br />
 
-                    {reviews.map((rev) => (
+                    {reviews!=null && reviews.map((rev) => (
                         <div className={classes.root} key={i++}>
                             <ReviewCard
                                 title={rev.hostel}
                                 value={rev.comment}
-                                date={rev.date.toString()}
+                                date={rev.date.toString().substring(0,10)}
                             />
                         </div>
                     ))}
@@ -139,7 +144,7 @@ const Reviews = () => {
                     <br />
                     <br />
 
-                    {complaints.map((complaint) => (
+                    {complaints!=null && complaints.map((complaint) => (
                         <div className={classes.root} key={i++}>
                             <ReviewCard
                                 title={complaint.hostel}
@@ -200,6 +205,7 @@ const Reviews = () => {
                     </div>
                 </div>
             </form>
+            <div className={classes.errorDiv} style={{color:`${cl}`}}>{error}</div>
         </>
     )
 }

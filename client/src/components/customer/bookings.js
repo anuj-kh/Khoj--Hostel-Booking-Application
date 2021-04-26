@@ -14,21 +14,16 @@ const useStyles = makeStyles({
 
 const Bookings = () => {
     const classes = useStyles();
-    const [currentBook,setCurrentBook]=useState();
-    const [prevBook,setPrevBook]=useState();
-    const [futureBook,setFutureBook]=useState();
-    const localStorageId = JSON.parse(localStorage.getItem('profile')).result._id
-    useEffect(() => {
-        const fetchBookings = async () => {
-            const res = await axios.get(`/dashboard/account/${localStorageId}`)
+    const localStoragee = JSON.parse(localStorage.getItem('profile')).result
 
-            setCurrentBook(res.data.currentHostel); 
-            setPrevBook(res.data.oldHostels);    
-            setFutureBook(res.data.futureHostels);  
-        }
+    const currentBook=localStoragee.currentHostel;
+    const futureBook=localStoragee.futureHostels;
+    const prevBook=localStoragee.oldHostels;
+    console.log(currentBook);
+    console.log(futureBook);
+    console.log(prevBook);
 
-        fetchBookings()
-    })
+
     return (
         <div>
             <Navbar />
@@ -42,7 +37,7 @@ const Bookings = () => {
 
             {
             currentBook!=null && 
-            <BookingTable hos={currentBook} />
+            <BookingTable hos={currentBook} key={'0'}/>
             }
             {
             currentBook==null && 
@@ -55,7 +50,7 @@ const Bookings = () => {
             
             {
             futureBook!=null && 
-            <BookingTable hos={futureBook} />
+            <BookingTable hos={futureBook} key={'1'} />
             }
             {
             futureBook==null && 
@@ -68,7 +63,7 @@ const Bookings = () => {
             
             {
             prevBook!=null && 
-            <BookingTable hos={prevBook} />
+            <BookingTable hos={prevBook} key={'2'}/>
             }
             {
             prevBook==null && 
