@@ -46,9 +46,22 @@ router.get(
 
 router.patch('/reviews/:id', async (req, res) => {
     try {
+        const {hostel, comment, date}=req.body;
+
+        const hostell=await UserModal.uss2.findById(hostel);
+        const std=await UserModal.uss.findById(req.params.id);
+
         const user = await UserModal.uss.updateOne(
             { _id: req.params.id },
-            { $push: { reviews: req.body } },
+            { $push: { reviews: {
+                hostel:hostell.name, comment, date
+            } } },
+        )
+        const user2 = await UserModal.uss2.updateOne(
+            { _id: hostel },
+            { $push: { reviews: {
+                student:std.name, comment, date
+            } } },
         )
         let result = await UserModal.uss.findById(req.params.id).populate("currentHostel.hostel").populate("futureHostels.hostel").populate("oldHostels.hostel");
         const token = jwt.sign(
@@ -62,20 +75,31 @@ router.patch('/reviews/:id', async (req, res) => {
     }
 })
 router.patch('/complaints/:id', async (req, res) => {
-    console.log("here0")
     try {
+        const {hostel, comment, date}=req.body;
+
+        const hostell=await UserModal.uss2.findById(hostel);
+        const std=await UserModal.uss.findById(req.params.id);
+
         const user = await UserModal.uss.updateOne(
             { _id: req.params.id },
-            { $push: { complaints: req.body } },
+            { $push: { complaints: {
+                hostel:hostell.name, comment, date
+            } } },
         )
-        console.log("here1")
+        const user2 = await UserModal.uss2.updateOne(
+            { _id: hostel },
+            { $push: { complaints: {
+                student:std.name, comment, date
+            } } },
+        )
+
         let result = await UserModal.uss.findById(req.params.id).populate("currentHostel.hostel").populate("futureHostels.hostel").populate("oldHostels.hostel");
         const token = jwt.sign(
             { email: result.email, id: result._id },
             secret,
             { expiresIn: '1h' },
         );
-        console.log("here2")
         res.status(200).json({ result: result, token });
     } catch (err) {
         res.status(200).json({ message: 'Something went wrong' })

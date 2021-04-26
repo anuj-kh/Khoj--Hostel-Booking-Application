@@ -27,8 +27,7 @@ const userSchema = mongoose.Schema({
         bookingDate: {type:String},
         dues: { type: SchemaTypes.Double },
         totalPayment: { type: SchemaTypes.Double },
-    }
-    ,
+    },
     futureHostels: {
         hostel: {type: mongoose.Schema.Types.ObjectId, ref:'hostels'},
         startDate: {type:String},
@@ -36,48 +35,19 @@ const userSchema = mongoose.Schema({
         bookingDate: {type:String},
         dues: { type: SchemaTypes.Double },
         totalPayment: { type: SchemaTypes.Double },
-    }
-    ,
+    },
+    reviews: {
+        hostel:{type:String},
+        comment: {type: String},
+        date: {type: Date},
+    },
+    complaints: {
+        hostel:{type:String},
+        comment: {type: String},
+        date: {type: Date},
+    },
     credit: {type: SchemaTypes.Double, default: 300},
-    daysLeft: {type: SchemaTypes.Double, default: 0},
-    reviews: [
-        {
-            hostel: {
-                type: String,
-                default: 'Hostel 1',
-            },
-            comment: {
-                type: String,
-                default: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                      dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                       cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
-            },
-            date: {
-                type: String,
-                default: Date.now,
-            },
-        },
-    ],
-    complaints: [
-        {
-            hostel: {
-                type: String,
-                default: 'Hostel 1',
-            },
-            comment: {
-                type: String,
-                default: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                      dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                       cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
-            },
-            date: {
-                type: Date,
-                default: Date.now,
-            },
-        },
-    ],
+    daysLeft: {type: SchemaTypes.Double, default: 0}
 })
 
 const userSchema2 = mongoose.Schema({
@@ -85,36 +55,40 @@ const userSchema2 = mongoose.Schema({
     address: { type: String, required: true },
     owner: { type: String, required: true },
     image: { type: String, required: true },
-    currentStudents: [
-        {
-            student: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
-            startDate: {type:String},
-            endDate: {type:String},
-            bookingDate: {type:String},
-            dues: { type: SchemaTypes.Double, default: 0 },
-            totalPayment: { type: SchemaTypes.Double, default: 0 },
-        }
-    ],
-    oldStudents: [
-        {
-            student: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
-            startDate: {type:String},
-            endDate: {type:String},
-            bookingDate: {type:String},
-            dues: { type: SchemaTypes.Double },
-            totalPayment: { type: SchemaTypes.Double },
-        }
-    ],
-    futureStudents: [
-        {
-            student: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
-            startDate: {type:String},
-            endDate: {type:String},
-            bookingDate: {type:String},
-            dues: { type: SchemaTypes.Double },
-            totalPayment: { type: SchemaTypes.Double },
-        }
-    ]
+    currentStudents: {
+        student: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
+        startDate: {type:String},
+        endDate: {type:String},
+        bookingDate: {type:String},
+        dues: { type: SchemaTypes.Double, default: 0 },
+        totalPayment: { type: SchemaTypes.Double, default: 0 },
+    },
+    oldStudents: {
+        student: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
+        startDate: {type:String},
+        endDate: {type:String},
+        bookingDate: {type:String},
+        dues: { type: SchemaTypes.Double },
+        totalPayment: { type: SchemaTypes.Double },
+    },
+    futureStudents: {
+        student: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
+        startDate: {type:String},
+        endDate: {type:String},
+        bookingDate: {type:String},
+        dues: { type: SchemaTypes.Double },
+        totalPayment: { type: SchemaTypes.Double },
+    },
+    reviews: {
+        student:{type:String},
+        comment: {type: String},
+        date: {type: Date},
+    },
+    complaints: {
+        student:{type:String},
+        comment: {type: String},
+        date: {type: Date},
+    },
 })
 
 var uss = mongoose.model('User', userSchema)

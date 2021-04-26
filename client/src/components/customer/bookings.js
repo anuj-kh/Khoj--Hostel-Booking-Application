@@ -19,10 +19,6 @@ const Bookings = () => {
     const currentBook=localStoragee.currentHostel;
     const futureBook=localStoragee.futureHostels;
     const prevBook=localStoragee.oldHostels;
-    console.log(currentBook);
-    console.log(futureBook);
-    console.log(prevBook);
-
 
     return (
         <div>

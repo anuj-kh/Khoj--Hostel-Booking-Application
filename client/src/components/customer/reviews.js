@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from './navbar'
-import { makeStyles } from '@material-ui/core'
+import { makeStyles, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core'
 import axios from 'axios'
 import TextField from '@material-ui/core/TextField'
 import ReviewCard from './reviewCard'
@@ -32,7 +32,11 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         margin: theme.spacing(1),
         fontWeight: 'bold'
-    }
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+      },
 }))
 
 let cl='red';
@@ -40,6 +44,9 @@ let cl='red';
 const Reviews = () => {
     const classes = useStyles()
     const localStoragee = JSON.parse(localStorage.getItem('profile')).result;
+
+    const currentBook=localStoragee.currentHostel;
+    const prevBook=localStoragee.oldHostels;
 
     const [error, setError] = useState("");
 
@@ -59,6 +66,11 @@ const Reviews = () => {
         setValue(newValue)
         console.log(value)
     }
+    const handleChange2 = (e) => {
+        setValue({ ...value, [e.target.name]: e.target.value })
+    }
+    console.log(value);
+
     const handleClick = async (event) => {
         event.preventDefault()
         try {
@@ -158,7 +170,7 @@ const Reviews = () => {
             <br />
             <form className={classes.root} noValidate autoComplete='off'>
                 <div>
-                    <TextField
+                    {/* <TextField
                         id='hostel'
                         label='Hostel'
                         placeholder='Hostel Name'
@@ -166,7 +178,34 @@ const Reviews = () => {
                         multiline
                         variant='outlined'
                         onChange={handleChange}
-                    />
+                    /> */}
+                    <FormControl className={classes.formControl} required>
+                        <InputLabel>Hostel</InputLabel>
+                        <Select
+                            name='hostel'
+                            id='hostel'
+                            label='Hostel'
+                            value={value.hostel}
+                            className={classes.formControl}
+                            onChange={handleChange2}>
+                            {
+                                currentBook!=null &&
+                                currentBook.map((i)=>(
+                                    <MenuItem value={i.hostel._id}>
+                                        {i.hostel.name}
+                                    </MenuItem>
+                                ))
+                            }
+                            {
+                                prevBook!=null &&
+                                prevBook.map((i)=>(
+                                    <MenuItem value={i.hostel._id}>
+                                        {i.hostel.name}
+                                    </MenuItem>
+                                ))
+                            }
+                        </Select>
+                    </FormControl>
 
                     <TextField
                         id='comment'
