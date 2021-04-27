@@ -8,11 +8,11 @@ const userDashboard = require('./routes/dashboard.js')
 const hostel = require('./routes/hostel.js')
 
 const app = express()
-
 app.use(bodyParser.json({ limit: '30mb', extended: true }))
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors())
-
+// Set EJS as templating engine
+app.set('view engine', 'ejs')
 app.use('/user', userRouter)
 app.use('/dashboard', userDashboard)
 app.use('/hostel', hostel)

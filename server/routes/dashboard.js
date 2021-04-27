@@ -3,13 +3,42 @@ const router = express.Router()
 const asyncHandler = require('express-async-handler')
 const UserModal = require('../models/user.js')
 var jwt = require('jsonwebtoken')
+var fs = require('fs')
+
+let path = require('path')
 
 const secret = 'test'
+var multer = require('multer')
 
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    },
+})
+
+var upload = multer({ storage: storage })
+
+router.get('/editProfile/:id', (req, res) => {
+    UserModal.uss({}, (err, items) => {
+        if (err) {
+            console.log(err)
+            res.status(500).send('An error occurred', err)
+        } else {
+            res.render('imagesPage', { items: items })
+        }
+    })
+})
 router.get(
     '/account/:id',
     asyncHandler(async (req, res) => {
-        const user = await UserModal.uss.findById(req.params.id).populate("currentHostel.hostel").populate("futureHostels.hostel").populate("oldHostels.hostel");
+        const user = await UserModal.uss
+            .findById(req.params.id)
+            .populate('currentHostel.hostel')
+            .populate('futureHostels.hostel')
+            .populate('oldHostels.hostel')
         if (user) {
             res.json(user)
         } else {
@@ -63,61 +92,93 @@ router.get(
 
 router.patch('/reviews/:id', async (req, res) => {
     try {
-        const {hostel, comment, date}=req.body;
+        const { hostel, comment, date } = req.body
 
-        const hostell=await UserModal.uss2.findById(hostel);
-        const std=await UserModal.uss.findById(req.params.id);
+        const hostell = await UserModal.uss2.findById(hostel)
+        const std = await UserModal.uss.findById(req.params.id)
 
         const user = await UserModal.uss.updateOne(
             { _id: req.params.id },
-            { $push: { reviews: {
-                hostel:hostell.name, comment, date
-            } } },
+            {
+                $push: {
+                    reviews: {
+                        hostel: hostell.name,
+                        comment,
+                        date,
+                    },
+                },
+            },
         )
         const user2 = await UserModal.uss2.updateOne(
             { _id: hostel },
-            { $push: { reviews: {
-                student:std.name, comment, date
-            } } },
+            {
+                $push: {
+                    reviews: {
+                        student: std.name,
+                        comment,
+                        date,
+                    },
+                },
+            },
         )
-        let result = await UserModal.uss.findById(req.params.id).populate("currentHostel.hostel").populate("futureHostels.hostel").populate("oldHostels.hostel");
+        let result = await UserModal.uss
+            .findById(req.params.id)
+            .populate('currentHostel.hostel')
+            .populate('futureHostels.hostel')
+            .populate('oldHostels.hostel')
         const token = jwt.sign(
             { email: result.email, id: result._id },
             secret,
             { expiresIn: '1h' },
-        );
-        res.status(200).json({ result: result, token });
+        )
+        res.status(200).json({ result: result, token })
     } catch (err) {
         res.status(200).json({ message: 'Something went wrong' })
     }
 })
 router.patch('/complaints/:id', async (req, res) => {
     try {
-        const {hostel, comment, date}=req.body;
+        const { hostel, comment, date } = req.body
 
-        const hostell=await UserModal.uss2.findById(hostel);
-        const std=await UserModal.uss.findById(req.params.id);
+        const hostell = await UserModal.uss2.findById(hostel)
+        const std = await UserModal.uss.findById(req.params.id)
 
         const user = await UserModal.uss.updateOne(
             { _id: req.params.id },
-            { $push: { complaints: {
-                hostel:hostell.name, comment, date
-            } } },
+            {
+                $push: {
+                    complaints: {
+                        hostel: hostell.name,
+                        comment,
+                        date,
+                    },
+                },
+            },
         )
         const user2 = await UserModal.uss2.updateOne(
             { _id: hostel },
-            { $push: { complaints: {
-                student:std.name, comment, date
-            } } },
+            {
+                $push: {
+                    complaints: {
+                        student: std.name,
+                        comment,
+                        date,
+                    },
+                },
+            },
         )
 
-        let result = await UserModal.uss.findById(req.params.id).populate("currentHostel.hostel").populate("futureHostels.hostel").populate("oldHostels.hostel");
+        let result = await UserModal.uss
+            .findById(req.params.id)
+            .populate('currentHostel.hostel')
+            .populate('futureHostels.hostel')
+            .populate('oldHostels.hostel')
         const token = jwt.sign(
             { email: result.email, id: result._id },
             secret,
             { expiresIn: '1h' },
-        );
-        res.status(200).json({ result: result, token });
+        )
+        res.status(200).json({ result: result, token })
     } catch (err) {
         res.status(200).json({ message: 'Something went wrong' })
     }
@@ -134,17 +195,37 @@ router.patch('/editProfile/:id', async (req, res) => {
                     address: req.body.address,
                 },
             },
-        );
-        let result = await UserModal.uss.findById(req.params.id).populate("currentHostel.hostel").populate("futureHostels.hostel").populate("oldHostels.hostel");
+        )
+        let result = await UserModal.uss
+            .findById(req.params.id)
+            .populate('currentHostel.hostel')
+            .populate('futureHostels.hostel')
+            .populate('oldHostels.hostel')
         const token = jwt.sign(
             { email: result.email, id: result._id },
             secret,
             { expiresIn: '1h' },
-        );
+        )
         res.status(200).json({ result: result, token })
     } catch (err) {
-        res.status(200).json({ message: 'Something went wrong' })
+        res.status(200).json({ message: err.message })
     }
 })
+router.patch('/payment/:id', async (req, res) => {
+    try {
+        console.log(req.body)
+        const user = await UserModal.uss.updateOne(
+            { _id: req.params.id },
+            {
+                $set: {
+                    dues: req.body.dues,
+                },
+            },
+        )
 
+        res.status(200).json({ result: 'updated successfully' })
+    } catch (err) {
+        res.status(200).json({ message: err.message })
+    }
+})
 module.exports = router
