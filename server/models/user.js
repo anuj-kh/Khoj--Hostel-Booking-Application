@@ -13,7 +13,7 @@ const userSchema = mongoose.Schema(
         user: { type: String, default: 'Student' },
         googleId: { type: String },
         id: { type: String },
-        img: { type: String },
+        img: { type: String,default:"user.png" },
         currentHostel: {
             hostel: { type: mongoose.Schema.Types.ObjectId, ref: 'hostels' },
             startDate: { type: String },
@@ -50,7 +50,7 @@ const userSchema = mongoose.Schema(
         },
         credit: { type: SchemaTypes.Double, default: 300 },
         daysLeft: { type: SchemaTypes.Double, default: 0 },
-        dues: { type: SchemaTypes.Double },
+        dues: { type: SchemaTypes.Double ,default:0},
     },
     {
         timestamps: true,

@@ -56,7 +56,7 @@ export default function EditProfile() {
         address: `${localStoragee.address}`,
     })
     const [path, setPath] = useState(`/uploads/${localStoragee.img}`)
-    const [img, setImg] = useState('')
+    const [img, setImg] = useState(`${localStoragee.img}`)
     const [user, setUser] = useState(`${localStoragee.name}`)
 
     const handleChange = (event) => {
@@ -129,7 +129,7 @@ export default function EditProfile() {
                         <Avatar
                             alt={user}
                             style={{ height: 140, width: 128 }}
-                            src={path ? path : `/user.png`}
+                            src={path }
                         />
                         <input
                             type='file'
