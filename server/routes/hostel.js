@@ -34,60 +34,92 @@ router.get(
 
 router.patch('/book/:id', async (req, res) => {
     try {
-        const { st, en,to,localStorageId,flag,dues,days } = req.body;
-        if(flag==true)
-        {
+        const { st, en, to, localStorageId, flag, dues, days } = req.body
+        if (flag == true) {
             await UserModal.uss2.updateOne(
                 { _id: req.params.id },
-                { $push: { 
-                    currentStudents: {
-                        startDate: st, endDate: en, bookingDate: to, student: localStorageId, dues,totalPayment:dues,
-                        }
-                    }
-             },
+                {
+                    $push: {
+                        currentStudents: {
+                            startDate: st,
+                            endDate: en,
+                            bookingDate: to,
+                            student: localStorageId,
+                            dues: dues,
+                            totalPayment: dues,
+                        },
+                    },
+                },
             )
             await UserModal.uss.findOneAndUpdate(
                 { _id: localStorageId },
-                { $push: { 
-                    currentHostel: {
-                        startDate: st, endDate: en, bookingDate: to, hostel: req.params.id, dues,totalPayment:dues,
-                    }},
-                    $set:{
-                        daysLeft:days
-                    }
-                 },
+                {
+                    $push: {
+                        currentHostel: {
+                            startDate: st,
+                            endDate: en,
+                            bookingDate: to,
+                            hostel: req.params.id,
+
+                            totalPayment: dues,
+                        },
+                    },
+                    $set: {
+                        daysLeft: days,
+                        dues: dues,
+                    },
+                },
             )
-        }
-        else
-        {
+        } else {
             await UserModal.uss2.updateOne(
                 { _id: req.params.id },
-                { $push: { 
-                    futureStudents: {
-                        startDate: st, endDate: en, bookingDate: to, student: localStorageId, dues,totalPayment:dues,
-                    }
-                } },
+                {
+                    $push: {
+                        futureStudents: {
+                            startDate: st,
+                            endDate: en,
+                            bookingDate: to,
+                            student: localStorageId,
+                            dues: dues,
+                            totalPayment: dues,
+                        },
+                    },
+                },
             )
             await UserModal.uss.updateOne(
                 { _id: localStorageId },
-                { $push: { 
-                    futureHostels: {
-                        startDate: st, endDate: en, bookingDate: to, hostel: req.params.id, dues,totalPayment:dues,
-                    }
-                } },
+                {
+                    $push: {
+                        futureHostels: {
+                            startDate: st,
+                            endDate: en,
+                            bookingDate: to,
+                            hostel: req.params.id,
+                            dues: dues,
+                            totalPayment: dues,
+                        },
+                    },
+                    $set: {
+                        daysLeft: days,
+                        dues: dues,
+                    },
+                },
             )
         }
-        let result = await UserModal.uss.findById(localStorageId).populate("currentHostel.hostel").populate("futureHostels.hostel").populate("oldHostels.hostel");
+        let result = await UserModal.uss
+            .findById(localStorageId)
+            .populate('currentHostel.hostel')
+            .populate('futureHostels.hostel')
+            .populate('oldHostels.hostel')
         const token = jwt.sign(
             { email: result.email, id: result._id },
             secret,
             { expiresIn: '1h' },
-        );
+        )
         res.status(200).json({ result: result, token })
     } catch (err) {
         res.status(200).json({ message: 'Something went wrong' })
     }
 })
-
 
 module.exports = router

@@ -29,24 +29,24 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'space-around',
         alignItems: 'center',
-        margin: 10,
+        margin: 5,
         width: '50ch',
         height: '6ch',
     },
-    err:{
+    err: {
         display: 'flex',
         justifyContent: 'center',
         flexDirection: 'column',
         alignItems: 'center',
-        fontWeight:'bold'
+        fontWeight: 'bold',
     },
 }))
 
-let cl='green';
+let cl = 'green'
 
 export default function EditProfile() {
     const classes = useStyles()
-    const [error,setError]=useState("")
+    const [error, setError] = useState('')
     const localStoragee = JSON.parse(localStorage.getItem('profile')).result
 
     const [value, setValue] = React.useState({
@@ -55,7 +55,7 @@ export default function EditProfile() {
         email: `${localStoragee.email}`,
         address: `${localStoragee.address}`,
     })
-    const [user, setUser]=useState(`${localStoragee.name}`);
+    const [user, setUser] = useState(`${localStoragee.name}`)
 
     const handleChange = (event) => {
         const newValue = { ...value }
@@ -65,22 +65,28 @@ export default function EditProfile() {
     const handleClick = async (event) => {
         event.preventDefault()
         try {
+            console.log(value)
+
             const response = await axios.patch(
                 `/dashboard/editProfile/${localStoragee._id}`,
                 value,
-            );
-            const data=response.data;
-            if (Object.keys(data).length == 1) 
-                throw data.message;
-            cl='green';
-            setError("Details succesfully updated!!")
+                { 'Content-Type': 'multipart/form-data' },
+            )
+            const data = response.data
+            if (Object.keys(data).length == 1) throw data.message
+            cl = 'green'
+            setError('Details succesfully updated!!')
             setUser(data.result.name)
-            localStorage.setItem('profile', JSON.stringify({ ...data }));
+            localStorage.setItem('profile', JSON.stringify({ ...data }))
         } catch (e) {
-            console.log(` Axios request failed: ${e}`);
-            cl='red';
-            setError(`${e}`);
+            console.log(` Axios request failed: ${e}`)
+            cl = 'red'
+            setError(`${e}`)
         }
+    }
+    const handlePhoto = (e) => {
+        e.preventDefault()
+        setValue({ ...value, photo: e.target.files[0] })
     }
 
     return (
@@ -91,20 +97,26 @@ export default function EditProfile() {
             <br />
             <br />
             <br />
-            <form className={classes.root} noValidate autoComplete='off'>
+            <form
+                className={classes.root}
+                noValidate
+                autoComplete='off'
+                encType='multipart/form-data'>
                 <div
                     className={classes.cent}
                     style={{
                         margin: '0',
-                        width: '40ch',
+                        width: '45ch',
                         height: '6ch',
                         fontSize: '20px',
                     }}>
-                    <Avatar
-                        alt={user}
-                        style={{ height: 140, width: 128 }}
-                        src='/user.png'
-                    />
+                    <div>
+                        <Avatar
+                            alt={user}
+                            style={{ height: 140, width: 128 }}
+                            src={`/user.png`}
+                        />
+                    </div>
                     <div>
                         <h2>{user}</h2>
                     </div>
@@ -169,8 +181,10 @@ export default function EditProfile() {
                     </Button>
                 </div>
             </form>
-            <br/>
-            <div className={classes.err} style={{color:`${cl}`}}>{error}</div>
+            <br />
+            <div className={classes.err} style={{ color: `${cl}` }}>
+                {error}
+            </div>
         </>
     )
 }

@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from './navbar'
-import { makeStyles, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core'
+import {
+    makeStyles,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+} from '@material-ui/core'
 import axios from 'axios'
 import TextField from '@material-ui/core/TextField'
 import ReviewCard from './reviewCard'
@@ -31,27 +37,27 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         margin: theme.spacing(1),
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     formControl: {
         margin: theme.spacing(1),
         minWidth: 120,
-      },
+    },
 }))
 
-let cl='red';
+let cl = 'red'
 
 const Reviews = () => {
     const classes = useStyles()
-    const localStoragee = JSON.parse(localStorage.getItem('profile')).result;
+    const localStoragee = JSON.parse(localStorage.getItem('profile')).result
 
-    const currentBook=localStoragee.currentHostel;
-    const prevBook=localStoragee.oldHostels;
+    const currentBook = localStoragee.currentHostel
+    const prevBook = localStoragee.oldHostels
 
-    const [error, setError] = useState("");
+    const [error, setError] = useState('')
 
-    let reviews=localStoragee.reviews
-    let complaints=localStoragee.complaints
+    let reviews = localStoragee.reviews
+    let complaints = localStoragee.complaints
 
     const [value, setValue] = React.useState({
         hostel: '',
@@ -69,7 +75,7 @@ const Reviews = () => {
     const handleChange2 = (e) => {
         setValue({ ...value, [e.target.name]: e.target.value })
     }
-    console.log(value);
+    console.log(value)
 
     const handleClick = async (event) => {
         event.preventDefault()
@@ -78,25 +84,24 @@ const Reviews = () => {
                 `/dashboard/reviews/${localStoragee._id}`,
                 value,
             )
-            const data=response.data;
-            if (Object.keys(data).length == 1) 
-                throw data.message;
-            localStorage.setItem('profile', JSON.stringify({ ...data }));
-            console.log("here");
-            cl='green';
-            setError("Review registered successfully!!");
-            console.log("here2");
-            
+            const data = response.data
+            if (Object.keys(data).length == 1) throw data.message
+            localStorage.setItem('profile', JSON.stringify({ ...data }))
+            console.log('here')
+            cl = 'green'
+            setError('Review registered successfully!!')
+            console.log('here2')
+
             setValue({
                 hostel: '',
                 comment: '',
                 date: '',
-            });
-            console.log("here3");
+            })
+            console.log('here3')
         } catch (e) {
             console.log(` Axios request failed: ${e}`)
-            cl='red';
-            setError(`${e}`);
+            cl = 'red'
+            setError(`${e}`)
         }
     }
     const handleClick2 = async (event) => {
@@ -106,22 +111,21 @@ const Reviews = () => {
                 `/dashboard/complaints/${localStoragee._id}`,
                 value,
             )
-            const data=response.data;
-            if (Object.keys(data).length == 1) 
-                throw data.message;
-            localStorage.setItem('profile', JSON.stringify({ ...data }));
-            cl='green';
-            setError("Complaint registered successfully!!");
+            const data = response.data
+            if (Object.keys(data).length == 1) throw data.message
+            localStorage.setItem('profile', JSON.stringify({ ...data }))
+            cl = 'green'
+            setError('Complaint registered successfully!!')
 
             setValue({
                 hostel: '',
                 comment: '',
                 date: '',
-            });
+            })
         } catch (e) {
             console.log(` Axios request failed: ${e}`)
-            cl='red';
-            setError(`${e}`);
+            cl = 'red'
+            setError(`${e}`)
         }
     }
     var i = 0
@@ -141,34 +145,36 @@ const Reviews = () => {
                     <br />
                     <br />
 
-                    {reviews!=null && reviews.map((rev) => (
-                        <div className={classes.root} key={i++}>
-                            <ReviewCard
-                                title={rev.hostel}
-                                value={rev.comment}
-                                date={rev.date.toString().substring(0,10)}
-                                width='500px'
-                                height='100px'   
-                            />
-                        </div>
-                    ))}
+                    {reviews != null &&
+                        reviews.map((rev) => (
+                            <div className={classes.root} key={i++}>
+                                <ReviewCard
+                                    title={rev.hostel}
+                                    value={rev.comment}
+                                    date={rev.date.toString().substring(0, 10)}
+                                    width='500px'
+                                    height='100px'
+                                />
+                            </div>
+                        ))}
                 </div>
                 <div>
                     <h1 className={classes.cent}>Your Complaints</h1>
                     <br />
                     <br />
 
-                    {complaints!=null && complaints.map((complaint) => (
-                        <div className={classes.root} key={i++}>
-                            <ReviewCard
-                                title={complaint.hostel}
-                                value={complaint.comment}
-                                date={complaint.date.toString()}
-                                width='500px'
-                                height='100px'
-                            />
-                        </div>
-                    ))}
+                    {complaints != null &&
+                        complaints.map((complaint) => (
+                            <div className={classes.root} key={i++}>
+                                <ReviewCard
+                                    title={complaint.hostel}
+                                    value={complaint.comment}
+                                    date={complaint.date.toString()}
+                                    width='500px'
+                                    height='100px'
+                                />
+                            </div>
+                        ))}
                 </div>
             </div>
             <br />
@@ -192,22 +198,18 @@ const Reviews = () => {
                             value={value.hostel}
                             className={classes.formControl}
                             onChange={handleChange2}>
-                            {
-                                currentBook!=null &&
-                                currentBook.map((i)=>(
+                            {currentBook != null &&
+                                currentBook.map((i) => (
                                     <MenuItem value={i.hostel._id}>
                                         {i.hostel.name}
                                     </MenuItem>
-                                ))
-                            }
-                            {
-                                prevBook!=null &&
-                                prevBook.map((i)=>(
+                                ))}
+                            {prevBook != null &&
+                                prevBook.map((i) => (
                                     <MenuItem value={i.hostel._id}>
                                         {i.hostel.name}
                                     </MenuItem>
-                                ))
-                            }
+                                ))}
                         </Select>
                     </FormControl>
 
@@ -248,7 +250,9 @@ const Reviews = () => {
                     </div>
                 </div>
             </form>
-            <div className={classes.errorDiv} style={{color:`${cl}`}}>{error}</div>
+            <div className={classes.errorDiv} style={{ color: `${cl}` }}>
+                {error}
+            </div>
         </>
     )
 }

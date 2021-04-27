@@ -3,7 +3,7 @@ import Navbar from './navbar'
 import { PayPalButton } from 'react-paypal-button-v2'
 import axios from 'axios'
 import Avatar from '@material-ui/core/Avatar'
-
+let cl = 'green'
 const Payment = () => {
     const [user, setUser] = useState({})
     const localStorageId = JSON.parse(localStorage.getItem('profile')).result
@@ -17,7 +17,8 @@ const Payment = () => {
 
         fetchUser()
     })
-    const [due, setDue] = useState(1000)
+    const [due, setDue] = useState({ dues: 0 })
+    const [error, setError] = useState('')
 
     return (
         <>
@@ -25,7 +26,7 @@ const Payment = () => {
             <div
                 style={{
                     display: 'flex',
-                    // position: 'relative',
+                    position: 'relative',
                     alignItems: 'center',
                     margin: '30 0 30 0',
                     flexDirection: 'column',
@@ -52,23 +53,38 @@ const Payment = () => {
                     </div>
                 </div>
                 <div>
-                    <h3>Dues : {due}</h3>
+                    <h3>Dues : {user.dues}</h3>
                 </div>
                 <div
                     style={{
                         display: 'flex',
+                        // flexDirection: 'column',
                         justifyContent: 'center',
                         width: '100%',
                         margin: '40px',
                     }}>
                     <PayPalButton
-                        amount={due}
-                        onSuccess={(details, data) => {
+                        amount={user.dues}
+                        onSuccess={async (details, data) => {
                             alert(
                                 'Transaction completed by ' +
                                     details.payer.name.given_name,
                             )
-                            setDue('0')
+                            cl = 'green'
+
+                            setDue({ dues: 0 })
+                            console.log(due)
+                            try {
+                                const response = await axios.patch(
+                                    `/dashboard/payment/${localStorageId}`,
+                                    due,
+                                )
+                            } catch (e) {
+                                console.log(` Axios request failed: ${e}`)
+                                cl = 'red'
+                                setError(`${e}`)
+                            }
+                            setError('Payment succesful!!')
                         }}
                         // options={{
                         //     clientId:
@@ -76,6 +92,7 @@ const Payment = () => {
                         // }}
                     />
                 </div>
+                <div style={{ color: `${cl}` }}>{error}</div>
             </div>
         </>
     )
