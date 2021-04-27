@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import OverviewBarTile from "./OverviewBarTile";
+import OverviewBarTile from "../customer/OverviewBarTile";
 import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
@@ -18,14 +18,23 @@ const OverviewBar = () => {
     const classes = useStyles();
     const localStoragee = JSON.parse(localStorage.getItem('profile')).result; 
     const curHostel=(localStoragee.currentHostel)?localStoragee.currentHostel[0].hostel.name:"Not registered";
-    const dues=(localStoragee.currentHostel)?localStoragee.currentHostel[0].dues:0;
+    const curStudents=(localStoragee.currentHostel) ?
+                        (localStoragee.currentHostel[0].hostel.currentStudents) ?
+                         localStoragee.currentHostel[0].hostel.currentStudents.length 
+                         : 0 :0;
+    let dues=0;
+    if(curStudents!=0)
+    {
+        localStoragee.currentHostel[0].hostel.currentStudents.map((i)=>{
+            dues+=i.dues;
+        });
+    }
 
     return (
         <div className={classes.root}>  
-            <OverviewBarTile title='Credit' value={`Rs. ${localStoragee.credit}`} />
-            <OverviewBarTile title='Current Hostel' value={curHostel} /> 
-            <OverviewBarTile title='Days Left' value={`${localStoragee.daysLeft}`} />
-            <OverviewBarTile title='Dues' value={`Rs. ${dues}`} />
+            <OverviewBarTile title='Your Hostel' value={curHostel} /> 
+            <OverviewBarTile title='Current students' value={curStudents} />
+            <OverviewBarTile title='Current dues' value={dues} />
         </div>  
     )
 }

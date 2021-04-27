@@ -64,12 +64,10 @@ const Reviews = () => {
         newValue[event.target.id] = event.target.value
         newValue.date = new Date()
         setValue(newValue)
-        console.log(value)
     }
     const handleChange2 = (e) => {
         setValue({ ...value, [e.target.name]: e.target.value })
     }
-    console.log(value);
 
     const handleClick = async (event) => {
         event.preventDefault()
@@ -174,15 +172,6 @@ const Reviews = () => {
             <br />
             <form className={classes.root} noValidate autoComplete='off'>
                 <div>
-                    {/* <TextField
-                        id='hostel'
-                        label='Hostel'
-                        placeholder='Hostel Name'
-                        value={value.hostel}
-                        multiline
-                        variant='outlined'
-                        onChange={handleChange}
-                    /> */}
                     <FormControl className={classes.formControl} required>
                         <InputLabel>Hostel</InputLabel>
                         <Select

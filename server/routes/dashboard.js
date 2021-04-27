@@ -20,6 +20,23 @@ router.get(
 )
 
 router.get(
+    '/:id',
+    asyncHandler(async (req, res) => {
+        try {
+            let result = await UserModal.uss.findById(req.params.id).populate("currentHostel.hostel").populate("futureHostels.hostel").populate("oldHostels.hostel");
+            const token = jwt.sign(
+                { email: result.email, id: result._id },
+                secret,
+                { expiresIn: '1h' },
+            );
+            res.status(200).json({ result: result, token });
+        } catch (err) {
+            res.status(200).json({ message: 'Something went wrong' })
+        }
+    }),
+)
+
+router.get(
     '/reviews/:id',
     asyncHandler(async (req, res) => {
         const user = await UserModal.uss.findById(req.params.id)
