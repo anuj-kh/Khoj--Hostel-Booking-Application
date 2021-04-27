@@ -88,12 +88,6 @@ const Navbar = () => {
                             </ListItem>
                         </Link>
                         ))}
-                        {/* <Link to='/login' className={classes.linkText} >
-                            <ListItem button>
-                                <ExitToAppIcon />
-                                <ListItemText primary="Sign out" />
-                            </ListItem>
-                        </Link> */}
                         <Button  className={classes.logout} className={classes.linkText} onClick={logout}>
                             <ExitToAppIcon />
                             <ListItemText primary="Sign out" />

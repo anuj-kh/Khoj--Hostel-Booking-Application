@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter, Redirect, Route, useHistory } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import Dashboard from './components/customer/dashboard'
+import Dashboard2 from './components/manager/dashboard'
 import Auth from './components/auth/auth.js'
 
 function App() {
@@ -26,8 +27,11 @@ function App() {
                     render={() =>
                         !localStorage.getItem('profile') ? (
                             <Redirect to='/auth' />
-                        ) : (
+                        ) : 
+                        JSON.parse(localStorage.getItem('profile')).result.user==="Student" ? (
                             <Dashboard />
+                        ) : (
+                            <Dashboard2 />
                         )
                     }
                 />

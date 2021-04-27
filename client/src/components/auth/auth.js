@@ -169,9 +169,6 @@ const Auth = () => {
                                         <MenuItem value={'Service Provider'}>
                                             Service Provider
                                         </MenuItem>
-                                        <MenuItem value={'Admin'}>
-                                            Admin
-                                        </MenuItem>
                                     </Select>
                                 </FormControl>
                             </>

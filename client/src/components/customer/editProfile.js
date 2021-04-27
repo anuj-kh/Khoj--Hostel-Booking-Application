@@ -136,7 +136,7 @@ export default function EditProfile() {
                         disabled
                         id='user'
                         label='User'
-                        defaultValue='Student'
+                        defaultValue={localStoragee.user}
                         variant='outlined'
                     />
                     <TextField

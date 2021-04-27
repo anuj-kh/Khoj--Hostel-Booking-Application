@@ -34,22 +34,18 @@ router.get(
 
 router.patch('/book/:id', async (req, res) => {
     try {
-        const { st, en, to, localStorageId, flag, dues, days } = req.body
-        if (flag == true) {
+        const { st, en,to,localStorageId,flag,dues,days } = req.body;
+        const cus=await UserModal.uss.findById(localStorageId);
+        if(flag==true)
+        {
             await UserModal.uss2.updateOne(
                 { _id: req.params.id },
-                {
-                    $push: {
-                        currentStudents: {
-                            startDate: st,
-                            endDate: en,
-                            bookingDate: to,
-                            student: localStorageId,
-                            dues: dues,
-                            totalPayment: dues,
-                        },
-                    },
-                },
+                { $push: { 
+                    currentStudents: {
+                        startDate: st, endDate: en, bookingDate: to, student: localStorageId, dues,totalPayment:dues, name: cus.name
+                        }
+                    }
+             },
             )
             await UserModal.uss.findOneAndUpdate(
                 { _id: localStorageId },
@@ -73,18 +69,11 @@ router.patch('/book/:id', async (req, res) => {
         } else {
             await UserModal.uss2.updateOne(
                 { _id: req.params.id },
-                {
-                    $push: {
-                        futureStudents: {
-                            startDate: st,
-                            endDate: en,
-                            bookingDate: to,
-                            student: localStorageId,
-                            dues: dues,
-                            totalPayment: dues,
-                        },
-                    },
-                },
+                { $push: { 
+                    futureStudents: {
+                        startDate: st, endDate: en, bookingDate: to, student: localStorageId, dues,totalPayment:dues, name: cus.name
+                    }
+                } },
             )
             await UserModal.uss.updateOne(
                 { _id: localStorageId },
@@ -122,4 +111,61 @@ router.patch('/book/:id', async (req, res) => {
     }
 })
 
+
+router.patch('/register/:id', async (req, res) => {
+    try {
+        let i=0;
+        const { hostel, address, image, cost } = req.body;
+        const owner=await UserModal.uss.findById(req.params.id);
+        
+        const hos= await UserModal.uss2.create({
+            name: hostel, address, source: image, price: cost, owner: owner.name, ownerEmail: owner.email
+        });
+        
+        await UserModal.uss.findOneAndUpdate(
+            { _id: req.params.id },
+            { $set: { 
+                currentHostel: {
+                    hostel: hos._id,
+                }},
+             },
+        )
+
+        let result = await UserModal.uss.findById(req.params.id).populate("currentHostel.hostel").populate("futureHostels.hostel").populate("oldHostels.hostel");
+        const token = jwt.sign(
+            { email: result.email, id: result._id },
+            secret,
+            { expiresIn: '1h' },
+        );
+        res.status(200).json({ result: result, token })
+    } catch (err) {
+        res.status(200).json({ message: 'Something went wrong' })
+    }
+})
+
+router.patch('/register2/:id', async (req, res) => {
+    try {
+        let i=0;
+        const { hostel, address, image, cost, id } = req.body;
+        const owner=await UserModal.uss.findById(req.params.id);
+        
+        const hos=await UserModal.uss2.findOneAndUpdate(
+            { _id: id },
+            { $set: { 
+                    name: hostel, address, source: image, price: cost
+                },
+             },
+        )
+
+        let result = await UserModal.uss.findById(req.params.id).populate("currentHostel.hostel").populate("futureHostels.hostel").populate("oldHostels.hostel");
+        const token = jwt.sign(
+            { email: result.email, id: result._id },
+            secret,
+            { expiresIn: '1h' },
+        );
+        res.status(200).json({ result: result, token })
+    } catch (err) {
+        res.status(200).json({ message: 'Something went wrong' })
+    }
+})
 module.exports = router
