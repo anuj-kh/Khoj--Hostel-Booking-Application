@@ -81,7 +81,7 @@ export default function EditProfile() {
                 formData,
                 {
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Type': 'multipart/form-data',
                     },
                 },
             )
@@ -91,7 +91,7 @@ export default function EditProfile() {
             cl = 'green'
             setError('Details succesfully updated!!')
             setUser(data.result.name)
-            setPath(`/uploads/${localStoragee.img}`)
+            // setPath(`/uploads/${localStoragee.img}`)
 
             localStorage.setItem('profile', JSON.stringify({ ...data }))
         } catch (e) {

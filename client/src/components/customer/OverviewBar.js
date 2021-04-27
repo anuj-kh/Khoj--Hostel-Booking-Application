@@ -18,12 +18,8 @@ const useStyles = makeStyles((theme) => ({
 const OverviewBar = () => {
     const classes = useStyles()
     const localStoragee = JSON.parse(localStorage.getItem('profile')).result
-    const curHostel = localStoragee.currentHostel
-        ? localStoragee.currentHostel[0].hostel.name
-        : 'Not registered'
-    const dues = localStoragee.currentHostel
-        ? localStoragee.currentHostel[0].dues
-        : 0
+    const curHostel = localStoragee.currentHostel? localStoragee.currentHostel[0].hostel.name : 'Not registered'
+    const dues = localStoragee.currentHostel ? localStoragee.currentHostel[0].dues : 0
 
     return (
         <div className={classes.root}>
