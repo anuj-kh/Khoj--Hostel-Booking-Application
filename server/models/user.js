@@ -13,10 +13,7 @@ const userSchema = mongoose.Schema(
         user: { type: String, default: 'Student' },
         googleId: { type: String },
         id: { type: String },
-        img: {
-            data: Buffer,
-            contentType: String,
-        },
+        img: { type: String },
         currentHostel: {
             hostel: { type: mongoose.Schema.Types.ObjectId, ref: 'hostels' },
             startDate: { type: String },
