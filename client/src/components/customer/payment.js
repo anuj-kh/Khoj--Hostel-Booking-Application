@@ -46,7 +46,7 @@ const Payment = () => {
                     <Avatar
                         alt={user.name}
                         style={{ height: 140, padding: '20px', width: 128 }}
-                        src='/user.png'
+                        src={`/uploads/${user.img}`}
                     />
                     <div>
                         <h2>{user.name}</h2>

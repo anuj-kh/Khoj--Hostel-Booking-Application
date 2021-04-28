@@ -12,25 +12,15 @@ var multer = require('multer')
 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads')
+        cb(null, '../client/public/uploads')
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
+        cb(null, file.originalname)
     },
 })
 
-var upload = multer({ storage: storage })
+const upload = multer({ storage: storage })
 
-router.get('/editProfile/:id', (req, res) => {
-    UserModal.uss({}, (err, items) => {
-        if (err) {
-            console.log(err)
-            res.status(500).send('An error occurred', err)
-        } else {
-            res.render('imagesPage', { items: items })
-        }
-    })
-})
 router.get(
     '/account/:id',
     asyncHandler(async (req, res) => {
@@ -183,8 +173,9 @@ router.patch('/complaints/:id', async (req, res) => {
         res.status(200).json({ message: 'Something went wrong' })
     }
 })
-router.patch('/editProfile/:id', async (req, res) => {
+router.patch('/editProfile/:id', upload.single('img'), async (req, res) => {
     try {
+        // console.log(req)
         const user = await UserModal.uss.updateOne(
             { _id: req.params.id },
             {
@@ -193,6 +184,7 @@ router.patch('/editProfile/:id', async (req, res) => {
                     phone: req.body.phone,
                     email: req.body.email,
                     address: req.body.address,
+                    img: req.file.originalname,
                 },
             },
         )

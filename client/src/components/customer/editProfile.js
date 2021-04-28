@@ -55,6 +55,8 @@ export default function EditProfile() {
         email: `${localStoragee.email}`,
         address: `${localStoragee.address}`,
     })
+    const [path, setPath] = useState(`/uploads/${localStoragee.img}`)
+    const [img, setImg] = useState(`${localStoragee.img}`)
     const [user, setUser] = useState(`${localStoragee.name}`)
 
     const handleChange = (event) => {
@@ -66,17 +68,31 @@ export default function EditProfile() {
         event.preventDefault()
         try {
             console.log(value)
+            console.log(img)
+            const formData = new FormData()
+            formData.append('name', value.name)
+            formData.append('phone', value.phone)
+            formData.append('email', value.email)
+            formData.append('address', value.address)
+            formData.append('img', img)
 
             const response = await axios.patch(
                 `/dashboard/editProfile/${localStoragee._id}`,
-                value,
-                { 'Content-Type': 'multipart/form-data' },
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                },
             )
             const data = response.data
+            // console.log(data)
             if (Object.keys(data).length == 1) throw data.message
             cl = 'green'
             setError('Details succesfully updated!!')
             setUser(data.result.name)
+            // setPath(`/uploads/${localStoragee.img}`)
+
             localStorage.setItem('profile', JSON.stringify({ ...data }))
         } catch (e) {
             console.log(` Axios request failed: ${e}`)
@@ -85,8 +101,7 @@ export default function EditProfile() {
         }
     }
     const handlePhoto = (e) => {
-        e.preventDefault()
-        setValue({ ...value, photo: e.target.files[0] })
+        setImg(e.target.files[0])
     }
 
     return (
@@ -114,7 +129,12 @@ export default function EditProfile() {
                         <Avatar
                             alt={user}
                             style={{ height: 140, width: 128 }}
-                            src={`/user.png`}
+                            src={path }
+                        />
+                        <input
+                            type='file'
+                            filename='img'
+                            onChange={handlePhoto}
                         />
                     </div>
                     <div>
