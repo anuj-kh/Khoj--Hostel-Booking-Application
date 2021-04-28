@@ -17,15 +17,15 @@ const useStyles = makeStyles((theme) => ({
 const OverviewBar = () => {
     const classes = useStyles();
     const localStoragee = JSON.parse(localStorage.getItem('profile')).result; 
-    const curHostel=(localStoragee.currentHostel)?localStoragee.currentHostel[0].hostel.name:"Not registered";
+    const curHostel=(localStoragee.currentHostel)?localStoragee.currentHostel.hostel.name:"Not registered";
     const curStudents=(localStoragee.currentHostel) ?
-                        (localStoragee.currentHostel[0].hostel.currentStudents) ?
-                         localStoragee.currentHostel[0].hostel.currentStudents.length 
+                        (localStoragee.currentHostel.hostel.currentStudents) ?
+                         localStoragee.currentHostel.hostel.currentStudents.length 
                          : 0 :0;
     let dues=0;
     if(curStudents!=0)
     {
-        localStoragee.currentHostel[0].hostel.currentStudents.map((i)=>{
+        localStoragee.currentHostel.hostel.currentStudents.map((i)=>{
             dues+=i.dues;
         });
     }

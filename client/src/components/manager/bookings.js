@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 const Bookings = () => {
     const classes = useStyles();
     const localStoragee = JSON.parse(localStorage.getItem('profile')).result;
-    const hostel=(localStoragee.currentHostel)?localStoragee.currentHostel[0].hostel:"0";
+    const hostel=(localStoragee.currentHostel)?localStoragee.currentHostel.hostel:"0";
     console.log(hostel)
     const currentBook=(hostel!="0")?hostel.currentStudents:null;
     const futureBook=(hostel!="0")?hostel.futureStudents:null;

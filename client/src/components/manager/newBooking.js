@@ -69,7 +69,7 @@ const Hostel = (props) => {
 
     const classes = useStyles();
     const localStoragee = JSON.parse(localStorage.getItem('profile')).result;
-    const [hostel,setHostel]=useState((localStoragee.currentHostel)?localStoragee.currentHostel[0].hostel:"0");
+    const [hostel,setHostel]=useState((localStoragee.currentHostel)?localStoragee.currentHostel.hostel:"0");
 
     const [value, setValue] = React.useState({
         hostel: '',
@@ -98,7 +98,7 @@ const Hostel = (props) => {
             if (Object.keys(data).length == 1) 
                 throw data.message;
             localStorage.setItem('profile', JSON.stringify({ ...data }));
-            setHostel((localStoragee.currentHostel)?localStoragee.currentHostel[0].hostel.name:"0");
+            setHostel((localStoragee.currentHostel)?localStoragee.currentHostel.hostel.name:"0");
         } catch (e) {
             console.log(` Axios request failed: ${e}`)
         }
@@ -118,7 +118,7 @@ const Hostel = (props) => {
             if (Object.keys(data).length == 1) 
                 throw data.message;
             localStorage.setItem('profile', JSON.stringify({ ...data }));
-            setHostel((localStoragee.currentHostel)?localStoragee.currentHostel[0].hostel:"0");
+            setHostel((localStoragee.currentHostel)?localStoragee.currentHostel.hostel:"0");
         } catch (e) {
             console.log(` Axios request failed: ${e}`)
         }
