@@ -16,12 +16,16 @@ app.set('view engine', 'ejs')
 app.use('/user', userRouter)
 app.use('/dashboard', userDashboard)
 app.use('/hostel', hostel)
-const CONNECTION_URL =
-    'mongodb+srv://user1:khoj123@users.kn06n.mongodb.net/users?retryWrites=true&w=majority'
-const PORT = 5000
+
+const PORT = process.env.PORT || 5000
+
+if (process.env.NODE_ENV ==='production')
+{
+     app.use(express.static('client/build'));
+}
 
 mongoose
-    .connect(CONNECTION_URL, {
+    .connect(process.env.MONGODB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
