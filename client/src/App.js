@@ -35,7 +35,7 @@ function App() {
                         )
                     }
                 />
-                <Route exact path='/https://khoj--a-portal-for-aspirants.herokuapp.com/auth' component={Auth} />
+                <Route exact path='/auth' component={Auth} />
             </div>
         </BrowserRouter>
     )
