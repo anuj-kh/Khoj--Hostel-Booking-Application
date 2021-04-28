@@ -167,7 +167,7 @@ const Reviews = () => {
                                 <ReviewCard
                                     title={complaint.hostel}
                                     value={complaint.comment}
-                                    date={complaint.date.toString()}
+                                    date={complaint.date.toString().substring(0, 10)}
                                     width='500px'
                                     height='100px'
                                 />

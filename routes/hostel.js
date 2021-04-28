@@ -5,6 +5,18 @@ const UserModal = require('../models/user.js')
 var jwt = require('jsonwebtoken')
 
 const secret = 'test'
+var multer = require('multer')
+
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, '../client/public/uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname)
+    },
+})
+
+const upload = multer({ storage: storage })
 
 router.get(
     '/hostels',
@@ -112,10 +124,11 @@ router.patch('/book/:id', async (req, res) => {
 })
 
 
-router.patch('/register/:id', async (req, res) => {
+router.patch('/register/:id',upload.single('img'), async (req, res) => {
     try {
         let i=0;
-        const { hostel, address, image, cost } = req.body;
+        const { hostel, address, cost } = req.body;
+        const image=req.file.originalname
         const owner=await UserModal.uss.findById(req.params.id);
         
         const hos= await UserModal.uss2.create({
