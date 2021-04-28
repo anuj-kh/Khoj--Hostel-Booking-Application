@@ -79,6 +79,9 @@ const Payment = () => {
                                     `/dashboard/payment/${localStorageId}`,
                                     due,
                                 )
+                                const localStoragee = JSON.parse(localStorage.getItem('profile'))
+                                localStoragee.result.dues=0;
+                                localStorage.setItem('profile', JSON.stringify({ ...localStoragee }))
                             } catch (e) {
                                 console.log(` Axios request failed: ${e}`)
                                 cl = 'red'
