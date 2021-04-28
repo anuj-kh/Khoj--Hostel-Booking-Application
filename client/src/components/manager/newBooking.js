@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         '& > *': {
             margin: theme.spacing(5),
-            width: theme.spacing(100),
+            width: theme.spacing(200),
             height: theme.spacing(25),
         },
     },
@@ -70,11 +70,12 @@ const Hostel = (props) => {
     const classes = useStyles();
     const localStoragee = JSON.parse(localStorage.getItem('profile')).result;
     const [hostel,setHostel]=useState((localStoragee.currentHostel)?localStoragee.currentHostel.hostel:"0");
+    const [img, setImg] = useState(`${localStoragee.img}`)
+    const [path, setPath] = useState(`/uploads/${hostel.source}`)
 
     const [value, setValue] = React.useState({
         hostel: '',
         address: '',
-        image: '',
         cost: '',
     })
     
@@ -89,9 +90,21 @@ const Hostel = (props) => {
     const handleClick = async (event) => {
         event.preventDefault()
         try {
+            console.log(value)
+            console.log(img)
+
+            const formData = new FormData()
+            formData.append('hostel', value.hostel)
+            formData.append('address', value.address)
+            formData.append('cost', value.cost)
+            formData.append('img', img)
             const response = await axios.patch(
                 `/hostel/register/${localStoragee._id}`,
-                value,
+                formData,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                },
             )
             const data=response.data;
             console.log(data);
@@ -123,7 +136,10 @@ const Hostel = (props) => {
             console.log(` Axios request failed: ${e}`)
         }
     }
-
+    const handlePhoto = (e) => {
+        setImg(e.target.files[0])
+        
+    }
 
     return (
         <>
@@ -165,12 +181,12 @@ const Hostel = (props) => {
                                 <br/>
                                 <br/>
                                 <TextField
-                                    id='image'
-                                    label='Hostel Photo'
-                                    placeholder='Hostel Photo'
-                                    value={value.image}
+                                    id='img'
+                                    type='file'
+                                    // label='Hostel Photo'
+                                    placeholder=''
                                     variant='outlined'
-                                    onChange={handleChange}
+                                    onChange={handlePhoto}
                                 />
                                 <br/>
                                 <br/>
@@ -214,7 +230,7 @@ const Hostel = (props) => {
             <div>
                 <Grid container spacing={2}>
                     <Grid item xs={4}>
-                    <img className={classes.paper} src={hostel.source} alt={hostel.name} width="200" height="200" />
+                    <img className={classes.paper} src={path} alt={hostel.name} width="200" height="200" />
                     </Grid>
                     <Grid item xs={4} className={classes.paper2}>
                         <h4>Location:</h4>

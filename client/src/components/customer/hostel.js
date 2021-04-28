@@ -144,7 +144,7 @@ const Hostel = (props) => {
         <div className={classes.root}>
             <Grid container spacing={2}>
                 <Grid item xs={4}>
-                <img className={classes.paper} src={hostel.source} alt={hostel.name} width="200" height="200" />
+                <img className={classes.paper} src={`/uploads/${hostel.source}`} alt={hostel.name} width="200" height="200" />
                 </Grid>
                 <Grid item xs={4} className={classes.paper2}>
                     <h4>Location:</h4>
