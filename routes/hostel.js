@@ -68,7 +68,7 @@ router.patch('/book/:id', async (req, res) => {
                             endDate: en,
                             bookingDate: to,
                             hostel: req.params.id,
-
+                            dues: dues,
                             totalPayment: dues,
                         },
                     },

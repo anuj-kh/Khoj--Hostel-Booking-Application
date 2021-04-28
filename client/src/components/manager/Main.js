@@ -42,6 +42,76 @@ const Main = () => {
             <br />
             <OverviewBar />
             <br />
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                }}>
+                <div>
+                    <h3 className={classes.cent}>Students registered:</h3>
+
+                </div>
+                <div>
+                    <h3 className={classes.cent}>Students subscription started:</h3>
+                </div>
+            </div>
+
+            <div className={classes.cent} >
+                <img className={classes.paper} src={"/chart.png"} alt={"/chart.png"} width="700" height="400" />
+                <img className={classes.paper} src={"/chart2.png"} alt={"/chart2.png"} width="700" height="400" />
+            </div>
+
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                }}>
+                <div>
+                    <h3 className={classes.cent}>Students subscription ended:</h3>
+
+                </div>
+                <div>
+                    <h3 className={classes.cent}>Reviews received:</h3>
+                </div>
+            </div>
+            
+
+            <div className={classes.cent} >
+            <img className={classes.paper} src={"/chart3.png"} alt={"/chart3.png"} width="700" height="400" />
+            
+            <img className={classes.paper} src={"/chart4.png"} alt={"/chart4.png"} width="700" height="400" />
+            </div>
+            
+            <br/>
+                <br/>
+                <br/>
+                <br/>
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                }}>
+                <div>
+                    <h3 className={classes.cent}>Complaints received:</h3>
+
+                </div>
+
+            </div>
+            
+
+            <div className={classes.cent} >
+            <img className={classes.paper} src={"/chart5.png"} alt={"/chart5.png"} width="700" height="400" />
+            </div>
         </div>
     )
 }
