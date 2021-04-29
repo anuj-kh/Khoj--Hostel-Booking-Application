@@ -34,7 +34,7 @@ const NewBookingCard = (props) => {
         <Link to={`/dashboard/hostel/${props.id}`}  >
             <Paper className={classes.customBorderRadius} elevation={10}>
                     <Grid item xs={6}>
-                        <img className={classes.paper} src={`/uploads/${props.source}`} alt={props.name} width="200" height="200" />
+                    <img className={classes.paper} src={`/uploads/${props.source}`} alt={props.name} width="200" height="200" />
                     </Grid>
                     <Grid item xs={6}>
                         <div className={classes.paper3}>

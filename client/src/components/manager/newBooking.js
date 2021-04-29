@@ -90,9 +90,6 @@ const Hostel = (props) => {
     const handleClick = async (event) => {
         event.preventDefault()
         try {
-            console.log(value)
-            console.log(img)
-
             const formData = new FormData()
             formData.append('hostel', value.hostel)
             formData.append('address', value.address)
@@ -136,9 +133,10 @@ const Hostel = (props) => {
             console.log(` Axios request failed: ${e}`)
         }
     }
+
     const handlePhoto = (e) => {
         setImg(e.target.files[0])
-        
+
     }
 
     return (

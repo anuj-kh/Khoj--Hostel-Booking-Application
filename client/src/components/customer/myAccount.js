@@ -3,8 +3,9 @@ import Navbar from './navbar'
 import AccountTable from './accountTable.js'
 import { makeStyles, Button } from '@material-ui/core'
 import { Link } from 'react-router-dom';
+import {Grid,Avatar} from '@material-ui/core'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     cent: {
         display: 'flex',
         
@@ -18,10 +19,17 @@ const useStyles = makeStyles({
         textDecoration: 'none',
         textTransform: 'uppercase',
         color: 'white'
-      }
-})
+      },
+      paper2: {
+        marginLeft: theme.spacing(45),
+        // textAlign: 'right',
+        // borderRadius: 25,
+    },
+}));
+
 const MyAccount = () => {
     const classes = useStyles()
+    const localStoragee = JSON.parse(localStorage.getItem('profile')).result
     return (
         <div>
             <Navbar />
@@ -30,7 +38,18 @@ const MyAccount = () => {
             <h1 className={classes.cent}>Your Account</h1>
             <br />
             <br />
-            <AccountTable />
+            <Grid container spacing={2}>
+                <Grid item xs={1} className={classes.paper2}>
+                    <Avatar
+                        alt={`${localStoragee.name}`}
+                        style={{ height: 140, width: 128 }}
+                        src={`/uploads/${localStoragee.img}`}
+                    />
+                </Grid>
+                <Grid item xs={4}>
+                    <AccountTable />
+                </Grid>
+            </Grid>
 
             <div className={classes.cent}>
             <Link to={"/dashboard/payment"} className={classes.linkText} >
