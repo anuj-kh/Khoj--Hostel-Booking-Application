@@ -56,5 +56,5 @@ class OverviewMain extends Component {
     }
 }
 export default GoogleApiWrapper({
-    apiKey: 'AIzaSyCzpzqgrjadRHloEtZovwaCjV7wqKxg8Qk',
+    apiKey: {GOOGLE_MAPS_API_KEY},
 })(OverviewMain)
