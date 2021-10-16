@@ -7,32 +7,30 @@
 
 ### Application Images:
 Student dashboard:<br><br>
-<img src="https://drive.google.com/uc?export=view&id=1SYNcq2U88sBUBt2D1L5JcfNGjyiRit6_" width="475" height="300">
+<img src="https://github.com/anuj-kh/Khoj--Hostel-Booking-Application/blob/main/Screenshots/Picture6.png" width="475" height="300">
 &nbsp;
-<img src="https://drive.google.com/uc?export=view&id=1gL7sSdjs9s5rDlt-HioPmFy0TB_SudOg" width="475" height="300">
+<img src="https://github.com/anuj-kh/Khoj--Hostel-Booking-Application/blob/main/Screenshots/Picture8.png" width="475" height="300">
 <br>
-<img src="https://drive.google.com/uc?export=view&id=1nVOyYIbcmkWa-3sUtwGIZxK9lbyl8NpF" width="475" height="300">
+<img src="https://github.com/anuj-kh/Khoj--Hostel-Booking-Application/blob/main/Screenshots/Picture9.png" width="475" height="300">
 &nbsp;
-<img src="https://drive.google.com/uc?export=view&id=1ARmoImhDct4vV19cvDVnCv_d97brodUZ" width="475" height="300">
+<img src="https://github.com/anuj-kh/Khoj--Hostel-Booking-Application/blob/main/Screenshots/Picture11.png" width="475" height="300">
 <br>
-<img src="https://drive.google.com/uc?export=view&id=1_08pdfldRbP-TUbrXIu4L4Qov6oOkj2T" width="475" height="300">
+<img src="https://github.com/anuj-kh/Khoj--Hostel-Booking-Application/blob/main/Screenshots/Picture12.png" width="475" height="300">
 &nbsp;
-<img src="https://drive.google.com/uc?export=view&id=1iNO-BqHMwk1Vy1tHymjgEE-Wh9mmn34n" width="475" height="300">
+<img src="https://github.com/anuj-kh/Khoj--Hostel-Booking-Application/blob/main/Screenshots/Picture13.png" width="475" height="300">
 <br>
-<img src="https://drive.google.com/uc?export=view&id=1ARmoImhDct4vV19cvDVnCv_d97brodUZ" width="475" height="300">
-&nbsp;
-<img src="https://drive.google.com/uc?export=view&id=14SHcihOM-RpuS_wpT8k9Z51LLJakTyBu" width="475" height="300">
+<img src="https://github.com/anuj-kh/Khoj--Hostel-Booking-Application/blob/main/Screenshots/Picture10.png" width="475" height="300">
 <br><br>
 Hostel Manager dashboard:<br><br>
-<img src="https://drive.google.com/uc?export=view&id=1gUtfmsZt7E540XB-4GilI8b5ND6bXRmn" width="475" height="300">
+<img src="https://github.com/anuj-kh/Khoj--Hostel-Booking-Application/blob/main/Screenshots/Picture1.png" width="475" height="300">
 &nbsp;
-<img src="https://drive.google.com/uc?export=view&id=1vuOE5iYFALF-B1DMBHQUZVRpcnjvlvqA" width="475" height="300">
+<img src="https://github.com/anuj-kh/Khoj--Hostel-Booking-Application/blob/main/Screenshots/Picture3.png" width="475" height="300">
 <br>
-<img src="https://drive.google.com/uc?export=view&id=1t4NONOeseWljKW3vX81zkMLGmztM9zh_" width="475" height="300">
+<img src="https://github.com/anuj-kh/Khoj--Hostel-Booking-Application/blob/main/Screenshots/Picture4.png" width="475" height="300">
 &nbsp;
-<img src="https://drive.google.com/uc?export=view&id=1S2v0nwQ3FBl4o8KEv4vKbG7dTIJJZsdG" width="475" height="300">
+<img src="https://github.com/anuj-kh/Khoj--Hostel-Booking-Application/blob/main/Screenshots/Picture2.png" width="475" height="300">
 <br>
-<img src="https://drive.google.com/uc?export=view&id=1Na7ls-xS2PSc6tM8OVGBw70SR3deEb1u" width="475" height="300">
+<img src="https://github.com/anuj-kh/Khoj--Hostel-Booking-Application/blob/main/Screenshots/Screenshot%202021-10-16%20203041.png" width="475" height="300">
 
 ### To run the application :
 
